@@ -33,18 +33,18 @@ const sketch = ({ context, canvas, width, height }) => {
 
   const options = {
     enableSwoopingCamera: false,
-    enableRotation: false,
-    color: 0xffffff,
-    metalness: 0,
-    roughness: 0.2,
+    enableRotation: true,
+    color: 0xff8e00,
+    metalness: 0.01,
+    roughness: 0.1,
     transmission: 1,
-    ior: 1.1,
-    reflectivity: 0.1,
-    thickness: 2.5,
+    ior: 1.3,
+    reflectivity: 0.2,
+    thickness: 5,
     envMapIntensity: 1.5,
     clearcoat: 0.1,
     clearcoatRoughness: 0.1,
-    normalScale: 0.3,
+    normalScale: 0.05,
     clearcoatNormalScale: 0.2,
     normalRepeat: 3,
     // attenuationTint: 0xffffff,
@@ -61,7 +61,7 @@ const sketch = ({ context, canvas, width, height }) => {
     context,
     antialias: false,
   });
-  renderer.setClearColor(0x1f1e1c, 1);
+  renderer.setClearColor(0xffffff, 1);
 
   const camera = new THREE.PerspectiveCamera(45, 1, 0.01, 100);
   camera.position.set(0, 0, 5);
@@ -79,7 +79,7 @@ const sketch = ({ context, canvas, width, height }) => {
   controls.enablePan = false;
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color( 0xf0f0f0 );
+  scene.background = new THREE.Color( 0xffffff );
   const renderPass = new THREE.RenderPass(scene, camera);
   const bloomPass = new THREE.UnrealBloomPass(
     new THREE.Vector2(width, height),
@@ -138,12 +138,13 @@ const sketch = ({ context, canvas, width, height }) => {
 
   let mesh = null;
 
-  // Load dragon GLTF model
-  new THREE.GLTFLoader().load("src/dragon.glb", (gltf) => {
-    const dragon = gltf.scene.children.find((mesh) => mesh.name === "Dragon");
+  // Load GLTF model
+  new THREE.GLTFLoader().load("src/heart.glb", (gltf) => {
+    
+    const glbModel = gltf.scene.children.find((mesh) => mesh.name === "Heart");
 
     // Just copy the geometry from the loaded model
-    const geometry = dragon.geometry.clone();
+    const geometry = glbModel.geometry.clone();
 
     // Adjust geometry to suit our scene
     geometry.rotateX(Math.PI / 2);
@@ -151,7 +152,7 @@ const sketch = ({ context, canvas, width, height }) => {
 
     // Create a new mesh and place it in the scene
     mesh = new THREE.Mesh(geometry, material);
-    mesh.scale.set(0.25, 0.25, 0.25);
+    mesh.scale.set(0.1, 0.1, 0.1);
     scene.add(mesh);
 
     // Discard the loaded model
