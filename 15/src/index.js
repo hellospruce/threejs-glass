@@ -17,8 +17,7 @@ require("three/examples/js/postprocessing/UnrealBloomPass.js");
 require("three/examples/js/shaders/LuminosityHighPassShader.js");
 require("three/examples/js/shaders/CopyShader.js");
 
-const Stats = require("stats-js");
-const { GUI } = require("dat.gui");
+// const { GUI } = require("dat.gui");
 
 const settings = {
   animate: true,
@@ -27,13 +26,11 @@ const settings = {
 };
 
 const sketch = ({ context, canvas, width, height }) => {
-  const stats = new Stats();
-  document.body.appendChild(stats.dom);
-  const gui = new GUI();
 
+  // const gui = new GUI();
   const options = {
     enableSwoopingCamera: false,
-    enableRotation: true,
+    enableRotation: false,
     color: 0xff8e00,
     metalness: 0.01,
     roughness: 0.1,
@@ -47,16 +44,12 @@ const sketch = ({ context, canvas, width, height }) => {
     normalScale: 0.05,
     clearcoatNormalScale: 0.2,
     normalRepeat: 3,
-    // attenuationTint: 0xffffff,
-    // attenuationDistance: 0,
     bloomThreshold: 0.0,
     bloomStrength: 0.0,
     bloomRadius: 0.0,
   };
 
   // Setup
-  // -----
-
   const renderer = new THREE.WebGLRenderer({
     context,
     antialias: false,
@@ -68,14 +61,8 @@ const sketch = ({ context, canvas, width, height }) => {
 
   const controls = new THREE.OrbitControls(camera, canvas);
   controls.enabled = !options.enableSwoopingCamera;
-
-  // to disable zoom
   controls.enableZoom = false;
-
-  // to disable rotation
   controls.enableRotate = false;
-
-  // to disable pan
   controls.enablePan = false;
 
   const scene = new THREE.Scene();
@@ -93,8 +80,6 @@ const sketch = ({ context, canvas, width, height }) => {
   composer.addPass(bloomPass);
 
   // Content
-  // -------
-
   const textureLoader = new THREE.TextureLoader();
 
   const bgTexture = textureLoader.load("src/texture.png");
@@ -132,11 +117,39 @@ const sketch = ({ context, canvas, width, height }) => {
     normalMap: normalMapTexture,
     clearcoatNormalMap: normalMapTexture,
     clearcoatNormalScale: new THREE.Vector2(options.clearcoatNormalScale),
-    // attenuationTint: options.attenuationTint,
-    // attenuationDistance: options.attenuationDistance,
   });
 
   let mesh = null;
+
+  // Define variables to store the translation values
+  let rotationX = 0;
+  let rotationY = 0;
+  let translationX = 0;
+  let translationY = -4;
+
+  // Add mousemove event listener to the document
+  document.addEventListener("mousemove", updateModelPosition);
+
+  // Function to handle mouse movement and update the model's position
+  function updateModelPosition(event) {
+    // Get the mouse position relative to the viewport
+    const mouse = {
+      x: (event.clientX / window.innerWidth) * 1 - 0.5,
+      y: -(event.clientY / window.innerHeight) * 1 + 0.5,
+    };
+
+    // Update translation based on mouse position
+    rotationX = Math.PI / 2 + mouse.y * 1;
+    rotationY = Math.PI / 2 + mouse.x * 1;
+    translationX = mouse.x * 4;
+    translationY = 0 + mouse.y * 1;
+
+    // Apply the new translation to the model
+    mesh.rotation.x = rotationX;
+    mesh.rotation.y = rotationY;
+    mesh.position.x = translationX;
+    mesh.position.y = translationY;
+  }
 
   // Load GLTF model
   new THREE.GLTFLoader().load("src/heart.glb", (gltf) => {
@@ -147,8 +160,9 @@ const sketch = ({ context, canvas, width, height }) => {
     const geometry = glbModel.geometry.clone();
 
     // Adjust geometry to suit our scene
-    geometry.rotateX(Math.PI / 2);
-    geometry.translate(0, -4, 0);
+    geometry.rotateX(Math.PI / 0.5);
+    geometry.rotateY(Math.PI / 0.7);
+    geometry.translate(0, 5, 5);
 
     // Create a new mesh and place it in the scene
     mesh = new THREE.Mesh(geometry, material);
@@ -160,11 +174,44 @@ const sketch = ({ context, canvas, width, height }) => {
       child.geometry.dispose();
       child.material.dispose();
     });
+
+    mesh.rotation.x = rotationX;
+    mesh.position.x = translationX;
+    mesh.position.y = translationY;
   });
+
+  // Create six sections and append them to the body
+  const sectionContainer = document.createElement("div");
+  sectionContainer.id = "main"; // Add the "main" class to the section container
+  document.body.appendChild(sectionContainer);
+
+  for (let i = 0; i < 6; i++) {
+    const section = document.createElement("section");
+    section.className = "section"; // Add the "section" class to each section
+    sectionContainer.appendChild(section);
+
+    // Append the canvas element to the first section
+    if (i === 0) {
+      sectionContainer.appendChild(canvas);
+    }
+  }
+
+  const mainStyles = {
+    width: '100vw',
+    height: '600vh',
+    display: 'flex',
+    'justify-content': 'center',
+    'align-items': 'center',
+    'flex-direction': 'row',
+    margin: '0'
+  };
+  
+  const element = document.getElementById('main');
+  Object.assign(element.style, mainStyles);
 
   // GUI
   // ---
-
+/*
   gui.add(options, "enableSwoopingCamera").onChange((val) => {
     controls.enabled = !val;
     controls.reset();
@@ -225,29 +272,7 @@ const sketch = ({ context, canvas, width, height }) => {
   gui.add(options, "normalRepeat", 1, 4, 1).onChange((val) => {
     normalMapTexture.repeat.set(val, val);
   });
-
-  // gui.addColor(options, "attenuationTint").onChange((val) => {
-  //   material.attenuationTint.set(val);
-  // });
-
-  // gui.add(options, "attenuationDistance", 0, 1, 0.01).onChange((val) => {
-  //   material.attenuationDistance = val;
-  // });
-
-const postprocessing = gui.addFolder("Post Processing");
-
-postprocessing.add(options, "bloomThreshold", 0, 0, 0.0).onChange((val) => {
-  bloomPass.threshold = val;
-});
-
- postprocessing.add(options, "bloomStrength", 0, 0, 0.0).onChange((val) => {
-   bloomPass.strength = val;
- });
-
-postprocessing.add(options, "bloomRadius", 0, 0, 0.0).onChange((val) => {
-   bloomPass.radius = val;
-});
-
+  */
   // Update
   // ------
 
@@ -272,18 +297,14 @@ postprocessing.add(options, "bloomRadius", 0, 0, 0.0).onChange((val) => {
   };
 
   // Lifecycle
-  // ---------
-
   return {
-    resize({ canvas, pixelRatio, viewportWidth, viewportHeight }) {
+    resize({canvas, pixelRatio, viewportWidth, viewportHeight }) {
       const dpr = Math.min(pixelRatio, 2); // Cap DPR scaling to 2x
 
       canvas.width = viewportWidth * dpr;
       canvas.height = viewportHeight * dpr;
       canvas.style.width = viewportWidth + "px";
       canvas.style.height = viewportHeight + "px";
-
-      bloomPass.resolution.set(viewportWidth, viewportHeight);
 
       renderer.setPixelRatio(dpr);
       renderer.setSize(viewportWidth, viewportHeight);
@@ -295,12 +316,9 @@ postprocessing.add(options, "bloomRadius", 0, 0, 0.0).onChange((val) => {
       camera.updateProjectionMatrix();
     },
     render({ time, deltaTime }) {
-      stats.begin();
       controls.update();
       update(time, deltaTime);
-      // renderer.render(scene, camera);
       composer.render();
-      stats.end();
     },
     unload() {
       mesh.geometry.dispose();
@@ -308,9 +326,6 @@ postprocessing.add(options, "bloomRadius", 0, 0, 0.0).onChange((val) => {
       hdrEquirect.dispose();
       controls.dispose();
       renderer.dispose();
-      bloomPass.dispose();
-      gui.destroy();
-      document.body.removeChild(stats.dom);
     },
   };
 };
