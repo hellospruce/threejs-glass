@@ -17,7 +17,7 @@ require("three/examples/js/postprocessing/UnrealBloomPass.js");
 require("three/examples/js/shaders/LuminosityHighPassShader.js");
 require("three/examples/js/shaders/CopyShader.js");
 
-// const { GUI } = require("dat.gui");
+const { GUI } = require("dat.gui");
 
 const settings = {
   animate: true,
@@ -27,7 +27,7 @@ const settings = {
 
 const sketch = ({ context, canvas, width, height }) => {
 
-  // const gui = new GUI();
+  const gui = new GUI();
   const options = {
     enableSwoopingCamera: false,
     enableRotation: false,
@@ -139,14 +139,14 @@ const sketch = ({ context, canvas, width, height }) => {
     };
 
     // Update translation based on mouse position
-    rotationX = Math.PI / 2 + mouse.y * 1;
-    rotationY = Math.PI / 2 + mouse.x * 1;
+    // rotationX = Math.PI / 2 + mouse.y * 5;
+    // rotationY = Math.PI / 2 + mouse.x * 5;
     translationX = mouse.x * 4;
     translationY = 0 + mouse.y * 1;
 
     // Apply the new translation to the model
-    mesh.rotation.x = rotationX;
-    mesh.rotation.y = rotationY;
+    // mesh.rotation.x = rotationX;
+    // mesh.rotation.y = rotationY;
     mesh.position.x = translationX;
     mesh.position.y = translationY;
   }
@@ -166,7 +166,7 @@ const sketch = ({ context, canvas, width, height }) => {
 
     // Create a new mesh and place it in the scene
     mesh = new THREE.Mesh(geometry, material);
-    mesh.scale.set(0.1, 0.1, 0.1);
+    mesh.scale.set(0.01, 0.01, 0.01);
     scene.add(mesh);
 
     // Discard the loaded model
@@ -179,7 +179,7 @@ const sketch = ({ context, canvas, width, height }) => {
     mesh.position.x = translationX;
     mesh.position.y = translationY;
   });
-
+/*
   // Create six sections and append them to the body
   const sectionContainer = document.createElement("div");
   sectionContainer.id = "main"; // Add the "main" class to the section container
@@ -208,10 +208,10 @@ const sketch = ({ context, canvas, width, height }) => {
   
   const element = document.getElementById('main');
   Object.assign(element.style, mainStyles);
-
+*/
   // GUI
   // ---
-/*
+
   gui.add(options, "enableSwoopingCamera").onChange((val) => {
     controls.enabled = !val;
     controls.reset();
@@ -272,7 +272,7 @@ const sketch = ({ context, canvas, width, height }) => {
   gui.add(options, "normalRepeat", 1, 4, 1).onChange((val) => {
     normalMapTexture.repeat.set(val, val);
   });
-  */
+  
   // Update
   // ------
 
