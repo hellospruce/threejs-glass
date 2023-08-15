@@ -1,3 +1,4 @@
+
 const canvasSketch = require("canvas-sketch");
 
 // Import ThreeJS and assign it to global scope
@@ -139,14 +140,14 @@ const sketch = ({ context, canvas, width, height }) => {
     };
 
     // Update translation based on mouse position
-    // rotationX = Math.PI / 2 + mouse.y * 5;
-    // rotationY = Math.PI / 2 + mouse.x * 5;
+    rotationX = Math.PI / 2 + mouse.y * 5;
+    rotationY = Math.PI / 2 + mouse.x * 5;
     translationX = mouse.x * 4;
     translationY = 0 + mouse.y * 1;
 
     // Apply the new translation to the model
-    // mesh.rotation.x = rotationX;
-    // mesh.rotation.y = rotationY;
+    mesh.rotation.x = rotationX;
+    mesh.rotation.y = rotationY;
     mesh.position.x = translationX;
     mesh.position.y = translationY;
   }
@@ -166,7 +167,7 @@ const sketch = ({ context, canvas, width, height }) => {
 
     // Create a new mesh and place it in the scene
     mesh = new THREE.Mesh(geometry, material);
-    mesh.scale.set(0.01, 0.01, 0.01);
+    mesh.scale.set(0.1, 0.1, 0.1);
     scene.add(mesh);
 
     // Discard the loaded model
@@ -179,36 +180,59 @@ const sketch = ({ context, canvas, width, height }) => {
     mesh.position.x = translationX;
     mesh.position.y = translationY;
   });
-/*
+
   // Create six sections and append them to the body
-  const sectionContainer = document.createElement("div");
-  sectionContainer.id = "main"; // Add the "main" class to the section container
-  document.body.appendChild(sectionContainer);
+
+  // Add the canvas with fixed position
+  const canvasStyles = {
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    zIndex: -1, // Ensure the canvas stays above other elements
+  };
+
+  Object.assign(canvas.style, canvasStyles);
+  document.body.appendChild(canvas);
+
+  // Set body display to block
+  document.body.style.display = 'block';
+
+  const modelOne = 'src/pebble_a.glb';
+  const modelTwo = 'src/pebble_b.glb';
+  const modelThree = 'src/pebble_c.glb';
+  const modelFour = 'src/swirl.glb';
+  const modelFive = 'src/soundwave.glb';
+  const modelSix = 'src/arrow.glb';
+  const modelSeven = 'src/heart.glb';
+  const modelEight = 'src/brain.glb';
+  
+  const meshOne = 'pebble_a_remesh';
+  const meshTwo = 'pebble_a_remesh';
+  const meshThree = 'pebble_c_remesh';
+  const meshFour = 'swirl';
+  const meshFive = 'soundwave';
+  const meshSix = 'arrow';
+  const meshSeven = 'Heart';
+  // const meshEight = 'brain';
+
+  // Create sections below the canvas
+  const models = [modelOne, modelTwo, modelThree, modelFour, modelFive, modelSix];
+  const meshes = [meshOne, meshTwo, meshThree, meshFour, meshFive, meshSix];
 
   for (let i = 0; i < 6; i++) {
-    const section = document.createElement("section");
-    section.className = "section"; // Add the "section" class to each section
-    sectionContainer.appendChild(section);
+    const section = document.createElement("div");
+    section.className = "section";
+    section.style.height = "100vh"; // Set the section's height to 100vh
+    section.id = `section-${i}`; // Assign a unique ID to each section
 
-    // Append the canvas element to the first section
-    if (i === 0) {
-      sectionContainer.appendChild(canvas);
-    }
+    // Add data attributes with values from the corresponding variables
+    section.setAttribute('data-model', models[i]);
+    section.setAttribute('data-mesh', meshes[i]);
+
+    document.body.appendChild(section);
   }
 
-  const mainStyles = {
-    width: '100vw',
-    height: '600vh',
-    display: 'flex',
-    'justify-content': 'center',
-    'align-items': 'center',
-    'flex-direction': 'row',
-    margin: '0'
-  };
-  
-  const element = document.getElementById('main');
-  Object.assign(element.style, mainStyles);
-*/
   // GUI
   // ---
 

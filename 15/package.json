@@ -16,7 +16,8 @@
     "three": "0.133.1"
   },
   "devDependencies": {
-    "@types/three": "0.93.13"
+    "@types/three": "0.93.13",
+    "budo": "^11.8.4"
   },
   "keywords": [
     "webgl",
