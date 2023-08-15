@@ -81,9 +81,8 @@ const sketch = ({ context, canvas, width, height }) => {
 
   // Content
   const textureLoader = new THREE.TextureLoader();
-
   const bgTexture = textureLoader.load("src/texture.png");
-  const bgGeometry = new THREE.PlaneGeometry(10.6666, 6);
+  const bgGeometry = new THREE.PlaneGeometry(10.6666, 6); // asoect ration for the background image containined the h1 text
   const bgMaterial = new THREE.MeshBasicMaterial({ map: bgTexture });
   const bgMesh = new THREE.Mesh(bgGeometry, bgMaterial);
   bgMesh.position.set(0, 0, -2);
@@ -101,7 +100,7 @@ const sketch = ({ context, canvas, width, height }) => {
   normalMapTexture.wrapT = THREE.RepeatWrapping;
   normalMapTexture.repeat.set(options.normalRepeat, options.normalRepeat);
 
-  const material = new THREE.MeshPhysicalMaterial({
+  const heartMaterial = new THREE.MeshPhysicalMaterial({
     color: 0xffffff,
     metalness: options.metalness,
     roughness: options.roughness,
@@ -119,7 +118,27 @@ const sketch = ({ context, canvas, width, height }) => {
     clearcoatNormalScale: new THREE.Vector2(options.clearcoatNormalScale),
   });
 
-  let mesh = null;
+  const swirlMaterial = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    metalness: options.metalness,
+    roughness: options.roughness,
+    transmission: options.transmission,
+    ior: options.ior,
+    reflectivity: options.reflectivity,
+    thickness: options.thickness,
+    envMap: hdrEquirect,
+    envMapIntensity: options.envMapIntensity,
+    clearcoat: options.clearcoat,
+    clearcoatRoughness: options.clearcoatRoughness,
+    normalScale: new THREE.Vector2(options.normalScale),
+    normalMap: normalMapTexture,
+    clearcoatNormalMap: normalMapTexture,
+    clearcoatNormalScale: new THREE.Vector2(options.clearcoatNormalScale),
+  });
+
+
+  let heartMesh = null;
+  let swirlMesh = null;
 
   // Define variables to store the translation values
   let rotationX = 0;
@@ -139,45 +158,76 @@ const sketch = ({ context, canvas, width, height }) => {
     };
 
     // Update translation based on mouse position
-    // rotationX = Math.PI / 2 + mouse.y * 5;
-    // rotationY = Math.PI / 2 + mouse.x * 5;
+    rotationX = Math.PI / 2 + mouse.y * 5;
+    rotationY = Math.PI / 2 + mouse.x * 5;
     translationX = mouse.x * 4;
     translationY = 0 + mouse.y * 1;
 
     // Apply the new translation to the model
-    // mesh.rotation.x = rotationX;
-    // mesh.rotation.y = rotationY;
-    mesh.position.x = translationX;
-    mesh.position.y = translationY;
+    heartMesh.rotation.x = rotationX;
+    heartMesh.rotation.y = rotationY;
+    heartMesh.position.x = translationX;
+    heartMesh.position.y = translationY;
+    swirlMesh.rotation.x = rotationX;
+    swirlMesh.rotation.y = rotationY;
+    swirlMesh.position.x = translationX;
+    swirlMesh.position.y = translationY;
   }
 
-  // Load GLTF model
+  // Load GLTF heart model
   new THREE.GLTFLoader().load("src/heart.glb", (gltf) => {
     
-    const glbModel = gltf.scene.children.find((mesh) => mesh.name === "Heart");
-
+    const heartModel = gltf.scene.children.find((mesh) => mesh.name === "Heart");
     // Just copy the geometry from the loaded model
-    const geometry = glbModel.geometry.clone();
+    const heartGeometry = heartModel.geometry.clone();
 
     // Adjust geometry to suit our scene
-    geometry.rotateX(Math.PI / 0.5);
-    geometry.rotateY(Math.PI / 0.7);
-    geometry.translate(0, 5, 5);
+    heartGeometry.rotateX(Math.PI / 0.5);
+    heartGeometry.rotateY(Math.PI / 0.7);
+    heartGeometry.translate(0, 5, 5);
 
     // Create a new mesh and place it in the scene
-    mesh = new THREE.Mesh(geometry, material);
-    mesh.scale.set(0.01, 0.01, 0.01);
-    scene.add(mesh);
+    heartMesh = new THREE.Mesh(heartGeometry, heartMaterial);
+    heartMesh.scale.set(0.1, 0.1, 0.1);
+    scene.add(heartMesh);
 
     // Discard the loaded model
     gltf.scene.children.forEach((child) => {
-      child.geometry.dispose();
-      child.material.dispose();
+      child.heartGeometry.dispose();
+      child.heartMaterial.dispose();
     });
 
-    mesh.rotation.x = rotationX;
-    mesh.position.x = translationX;
-    mesh.position.y = translationY;
+    heartMesh.rotation.x = rotationX;
+    heartMesh.position.x = translationX;
+    heartMesh.position.y = translationY;
+  });
+
+  // Load GLTF swirl model
+  new THREE.GLTFLoader().load("src/swirl.glb", (gltf) => {
+  
+    const swirlModel = gltf.scene.children.find((mesh) => mesh.name === "swirl");
+    // Just copy the geometry from the loaded model
+    const swirlGeometry = swirlModel.geometry.clone();
+
+    // Adjust geometry to suit our scene
+    swirlGeometry.rotateX(Math.PI / 0.5);
+    swirlGeometry.rotateY(Math.PI / 0.7);
+    swirlGeometry.translate(0, 5, 5);
+
+    // Create a new mesh and place it in the scene
+    swirlMesh = new THREE.Mesh(swirlGeometry, swirlMaterial);
+    swirlMesh.scale.set(0.1, 0.1, 0.1);
+    scene.add(swirlMesh);
+
+    // Discard the loaded model
+    gltf.scene.children.forEach((child) => {
+      child.swirlGeometry.dispose();
+      child.swirlMaterial.dispose();
+    });
+
+    swirlMesh.rotation.x = rotationX;
+    swirlMesh.position.x = translationX;
+    swirlMesh.position.y = translationY;
   });
 /*
   // Create six sections and append them to the body
@@ -218,55 +268,55 @@ const sketch = ({ context, canvas, width, height }) => {
   });
 
   gui.add(options, "enableRotation").onChange(() => {
-    if (mesh) mesh.rotation.set(0, 0, 0);
+    if (heartMesh) heartMesh.rotation.set(0, 0, 0);
   });
 
   gui.addColor(options, "color").onChange((val) => {
-    material.color.set(val);
+    heartMaterial.color.set(val);
   });
 
   gui.add(options, "roughness", 0, 1, 0.01).onChange((val) => {
-    material.roughness = val;
+    heartMaterial.roughness = val;
   });
 
   gui.add(options, "metalness", 0, 1, 0.01).onChange((val) => {
-    material.metalness = val;
+    heartMaterial.metalness = val;
   });
 
   gui.add(options, "transmission", 0, 1, 0.01).onChange((val) => {
-    material.transmission = val;
+    heartMaterial.transmission = val;
   });
 
   gui.add(options, "ior", 1, 2.33, 0.01).onChange((val) => {
-    material.ior = val;
+    heartMaterial.ior = val;
   });
 
   gui.add(options, "reflectivity", 0, 1, 0.01).onChange((val) => {
-    material.reflectivity = val;
+    heartMaterial.reflectivity = val;
   });
 
   gui.add(options, "thickness", 0, 5, 0.1).onChange((val) => {
-    material.thickness = val;
+    heartMaterial.thickness = val;
   });
 
   gui.add(options, "envMapIntensity", 0, 3, 0.1).onChange((val) => {
-    material.envMapIntensity = val;
+    heartMaterial.envMapIntensity = val;
   });
 
   gui.add(options, "clearcoat", 0, 1, 0.01).onChange((val) => {
-    material.clearcoat = val;
+    heartMaterial.clearcoat = val;
   });
 
   gui.add(options, "clearcoatRoughness", 0, 1, 0.01).onChange((val) => {
-    material.clearcoatRoughness = val;
+    heartMaterial.clearcoatRoughness = val;
   });
 
   gui.add(options, "normalScale", 0, 5, 0.01).onChange((val) => {
-    material.normalScale.set(val, val);
+    heartMaterial.normalScale.set(val, val);
   });
 
   gui.add(options, "clearcoatNormalScale", 0, 5, 0.01).onChange((val) => {
-    material.clearcoatNormalScale.set(val, val);
+    heartMaterial.clearcoatNormalScale.set(val, val);
   });
 
   gui.add(options, "normalRepeat", 1, 4, 1).onChange((val) => {
@@ -321,8 +371,10 @@ const sketch = ({ context, canvas, width, height }) => {
       composer.render();
     },
     unload() {
-      mesh.geometry.dispose();
-      material.dispose();
+      heartMesh.geometry.dispose();
+      heartMaterial.dispose();
+      swirlMesh.geometry.dispose();
+      swirlMaterial.dispose();
       hdrEquirect.dispose();
       controls.dispose();
       renderer.dispose();
