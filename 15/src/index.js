@@ -70,6 +70,27 @@ const sketch = ({ context, canvas, width, height }) => {
     bloomRadius: 0.0,
   };
 
+  const arrowOptions = {
+    enableSwoopingCamera: false,
+    enableRotation: false,
+    color: 0xff8e00,
+    metalness: 0.01,
+    roughness: 0.1,
+    transmission: 1,
+    ior: 1.3,
+    reflectivity: 0.2,
+    thickness: 5,
+    envMapIntensity: 1.5,
+    clearcoat: 0.1,
+    clearcoatRoughness: 0.1,
+    normalScale: 0.05,
+    clearcoatNormalScale: 0.2,
+    normalRepeat: 3,
+    bloomThreshold: 0.0,
+    bloomStrength: 0.0,
+    bloomRadius: 0.0,
+  };
+
   // Setup
   const renderer = new THREE.WebGLRenderer({
     context,
@@ -157,10 +178,24 @@ const sketch = ({ context, canvas, width, height }) => {
     clearcoatNormalScale: new THREE.Vector2(swirlOptions.clearcoatNormalScale),
   });
 
-
-  let heartMesh = null;
-  let swirlMesh = null;
-
+  const arrowMaterial = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    metalness: swirlOptions.metalness,
+    roughness: swirlOptions.roughness,
+    transmission: swirlOptions.transmission,
+    ior: swirlOptions.ior,
+    reflectivity: swirlOptions.reflectivity,
+    thickness: swirlOptions.thickness,
+    envMap: hdrEquirect,
+    envMapIntensity: swirlOptions.envMapIntensity,
+    clearcoat: swirlOptions.clearcoat,
+    clearcoatRoughness: swirlOptions.clearcoatRoughness,
+    normalScale: new THREE.Vector2(swirlOptions.normalScale),
+    normalMap: normalMapTexture,
+    clearcoatNormalMap: normalMapTexture,
+    clearcoatNormalScale: new THREE.Vector2(swirlOptions.clearcoatNormalScale),
+  });
+  
   // Define variables to store the translation values
   let rotationX = 0;
   let rotationY = 0;
@@ -195,12 +230,25 @@ const sketch = ({ context, canvas, width, height }) => {
     heartMesh.position.y = translationY / 2;
     
     swirlMesh.rotation.y = swirlrotationX * 10;
+
+    arrowMesh.rotation.x = rotationX;
+    arrowMesh.rotation.y = rotationY;
+    arrowMesh.rotation.z = rotationZ;
+    arrowMesh.position.x = translationX / 2;
+    arrowMesh.position.y = translationY / 2;
+
   }
+
+  let heartMeshName = "";
+  let swirlMeshName = "";
+  let arrowMeshName = "";
 
   // Load GLTF heart model
   new THREE.GLTFLoader().load("src/heart.glb", (gltf) => {
     
     const heartModel = gltf.scene.children.find((mesh) => mesh.name === "Heart");
+    const heartMeshName = heartModel.name; // Store the mesh name in a variable
+    console.log(heartMeshName);
     // Just copy the geometry from the loaded model
     const heartGeometry = heartModel.geometry.clone();
 
@@ -214,22 +262,23 @@ const sketch = ({ context, canvas, width, height }) => {
     heartMesh = new THREE.Mesh(heartGeometry, heartMaterial);
     heartMesh.scale.set(0.1, 0.1, 0.1);
     scene.add(heartMesh);
+    
 
     // Discard the loaded model
-    gltf.scene.children.forEach((child) => {
-      child.heartGeometry.dispose();
-      child.heartMaterial.dispose();
-    });
+    heartGeometry.dispose();
+    heartMaterial.dispose();
 
     heartMesh.rotation.x = rotationX;
     heartMesh.position.x = translationX;
     heartMesh.position.y = translationY;
+    let heartVis = heartMesh.visible = true;
   });
 
   // Load GLTF swirl model
   new THREE.GLTFLoader().load("src/swirl.glb", (gltf) => {
-  
     const swirlModel = gltf.scene.children.find((mesh) => mesh.name === "swirl");
+    const swirlMeshName = swirlModel.name; // Store the mesh name in a variable
+    console.log(swirlMeshName);
     // Just copy the geometry from the loaded model
     const swirlGeometry = swirlModel.geometry.clone();
 
@@ -242,6 +291,7 @@ const sketch = ({ context, canvas, width, height }) => {
     swirlMesh = new THREE.Mesh(swirlGeometry, swirlMaterial);
     swirlMesh.scale.set(0.02, 0.02, 0.02);
     scene.add(swirlMesh);
+    
 
     // Discard the loaded model
     gltf.scene.children.forEach((child) => {
@@ -252,7 +302,120 @@ const sketch = ({ context, canvas, width, height }) => {
     swirlMesh.rotation.x = rotationX;
     swirlMesh.position.x = translationX;
     swirlMesh.position.y = translationY;
+    let swirlVis = swirlMesh.visible = true;
   });
+
+  // Load GLTF arrow model
+  new THREE.GLTFLoader().load("src/arrow.glb", (gltf) => {
+    const arrowModel = gltf.scene.children.find((mesh) => mesh.name === "arrow");
+    const arrowMeshName = arrowModel.name; // Store the mesh name in a variable
+    console.log(arrowMeshName);
+    // Just copy the geometry from the loaded model
+    const arrowGeometry = arrowModel.geometry.clone();
+
+    // Adjust geometry to suit our scene
+    arrowGeometry.rotateX(Math.PI / 0.4);
+    arrowGeometry.rotateY(Math.PI / 0.5);
+    arrowGeometry.translate(0, 10, 5);
+
+    // Create a new mesh and place it in the scene
+    arrowMesh = new THREE.Mesh(arrowGeometry, arrowMaterial);
+    arrowMesh.scale.set(0.02, 0.02, 0.02);
+    scene.add(arrowMesh);
+    
+
+    // Discard the loaded model
+    gltf.scene.children.forEach((child) => {
+      child.arrowGeometry.dispose();
+      child.arrowMaterial.dispose();
+    });
+
+    arrowMesh.rotation.x = rotationX;
+    arrowMesh.position.x = translationX;
+    arrowMesh.position.y = translationY;
+    let arrowVis = arrowMesh.visible = true;
+  });
+
+  // Create six sections and append them to the body
+
+  // Add the canvas with fixed position
+  const canvasStyles = {
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    zIndex: -1, // Ensure the canvas stays above other elements
+  };
+
+  Object.assign(canvas.style, canvasStyles);
+  document.body.appendChild(canvas);
+
+  // Set body display to block
+  document.body.style.display = 'block';
+
+  const modelOne = 'src/pebble_a.glb';
+  const modelTwo = 'src/pebble_b.glb';
+  const modelThree = 'src/pebble_c.glb';
+  const modelFour = 'src/swirl.glb';
+  const modelFive = 'src/soundwave.glb';
+  const modelSix = 'src/arrow.glb';
+  const modelSeven = 'src/heart.glb';
+  const modelEight = 'src/brain.glb';
+  const meshOne = 'Heart';
+  const meshTwo = 'pebble_a_remesh';
+  const meshThree = 'swirl';
+  const meshFour = 'soundwave';
+  const meshFive = 'soundwave';
+  const meshSix = 'arrow';
+  const meshSeven = 'Heart';
+  // const meshEight = 'brain';
+
+  // Create sections below the canvas
+  const models = [modelOne, modelTwo, modelThree, modelFour, modelFive, modelSix];
+  const meshes = [meshOne, meshTwo, meshThree, meshFour, meshFive, meshSix];
+
+  for (let i = 0; i < 6; i++) {
+    const section = document.createElement("div");
+    section.className = "section";
+    section.style.height = "100vh"; // Set the section's height to 100vh
+    section.id = `section-${i}`; // Assign a unique ID to each section
+
+    // Add data attributes with values from the corresponding variables
+    section.setAttribute('data-model', models[i]);
+    section.setAttribute('data-mesh', meshes[i]);
+
+    document.body.appendChild(section);
+  }
+
+// Function to check if an element is in the viewport
+function isInViewport(element) {
+  const rect = element.getBoundingClientRect();
+  return (
+    rect.bottom > 0 &&
+    rect.top < window.innerHeight
+  );
+}
+
+// Function to log the data-mesh attribute if a section is in the viewport
+function logVisibleSections() {
+  const sections = document.querySelectorAll('[data-mesh]');
+  sections.forEach(section => {
+      if (isInViewport(section)) {
+          const meshValue = section.getAttribute('data-mesh');
+          if (meshValue === heartMeshName) {
+            // console.log(`Section "${meshValue}" is in the viewport and matches heartMeshName.`);
+           }
+          if (meshValue === swirlMeshName) {
+           // console.log(`Section "${meshValue}" is in the viewport and matches swirlMeshName.`);
+        }
+
+      }
+  });
+}
+
+// Call the logVisibleSections function when the page loads or when scrolling
+document.addEventListener('DOMContentLoaded', logVisibleSections);
+window.addEventListener('scroll', logVisibleSections);
 
   // GUI
   // ---
@@ -265,11 +428,13 @@ const sketch = ({ context, canvas, width, height }) => {
   gui.add(options, "enableRotation").onChange(() => {
     if (heartMesh) heartMesh.rotation.set(0, 0, 0);
     if (swirlMesh) swirlMesh.rotation.set(0, 0, 0);
+    if (arrowMesh) swirlMesh.rotation.set(0, 0, 0);
   });
 
   gui.addColor(options, "color").onChange((val) => {
     heartMaterial.color.set(val);
     swirlMaterial.color.set(val);
+    arrowMaterial.color.set(val);
   });
 
   gui.add(options, "roughness", 0, 1, 0.01).onChange((val) => {
@@ -377,6 +542,10 @@ const sketch = ({ context, canvas, width, height }) => {
     render({ time, deltaTime }) {
       controls.update();
       update(time, deltaTime);
+
+        //heartMesh.visible = heartVis; // Update heart mesh visibility
+        //swirlMesh.visible = swirlVis; // Update swirl mesh visibility
+
       composer.render();
     },
     unload() {
@@ -384,11 +553,15 @@ const sketch = ({ context, canvas, width, height }) => {
       heartMaterial.dispose();
       swirlMesh.geometry.dispose();
       swirlMaterial.dispose();
+      arrowMesh.geometry.dispose();
+      arrowMaterial.dispose();
       hdrEquirect.dispose();
       controls.dispose();
       renderer.dispose();
     },
   };
 };
+
+
 
 canvasSketch(sketch, settings);
