@@ -207,6 +207,15 @@ const sketch = ({ context, canvas, width, height }) => {
   // Content
   const textureLoader = new THREE.TextureLoader();
   const bgTexture = textureLoader.load("src/texture.png");
+  // const bgTexture = textureLoader.load("src/50_million.png");
+  // const bgTexture = textureLoader.load("src/summary.png");
+  // const bgTexture = textureLoader.load("src/dolton_house.png");
+  // const bgTexture = textureLoader.load("src/matters_black.png");
+  // const bgTexture = textureLoader.load("src/matters_white.png");
+  // const bgTexture = textureLoader.load("src/media.png");
+  // const bgTexture = textureLoader.load("src/pitch.png");
+  // const bgTexture = textureLoader.load("src/speakers.png");
+  // const bgTexture = textureLoader.load("src/thesis.png");
   const bgGeometry = new THREE.PlaneGeometry(10.6666, 6); // asoect ration for the background image containined the h1 text
   const bgMaterial = new THREE.MeshBasicMaterial({ map: bgTexture });
   const bgMesh = new THREE.Mesh(bgGeometry, bgMaterial);
