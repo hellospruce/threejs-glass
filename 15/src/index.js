@@ -91,6 +91,89 @@ const sketch = ({ context, canvas, width, height }) => {
     bloomRadius: 0.0,
   };
 
+  const pebbleaOptions = {
+    enableSwoopingCamera: false,
+    enableRotation: false,
+    color: 0xff8e00,
+    metalness: 0.01,
+    roughness: 0.1,
+    transmission: 1,
+    ior: 1.3,
+    reflectivity: 0.2,
+    thickness: 5,
+    envMapIntensity: 1.5,
+    clearcoat: 0.1,
+    clearcoatRoughness: 0.1,
+    normalScale: 0.05,
+    clearcoatNormalScale: 0.2,
+    normalRepeat: 3,
+    bloomThreshold: 0.0,
+    bloomStrength: 0.0,
+    bloomRadius: 0.0,
+  };
+
+  const pebblebOptions = {
+    enableSwoopingCamera: false,
+    enableRotation: false,
+    color: 0xff8e00,
+    metalness: 0.01,
+    roughness: 0.1,
+    transmission: 1,
+    ior: 1.3,
+    reflectivity: 0.2,
+    thickness: 5,
+    envMapIntensity: 1.5,
+    clearcoat: 0.1,
+    clearcoatRoughness: 0.1,
+    normalScale: 0.05,
+    clearcoatNormalScale: 0.2,
+    normalRepeat: 3,
+    bloomThreshold: 0.0,
+    bloomStrength: 0.0,
+    bloomRadius: 0.0,
+  };
+
+  const pebblecOptions = {
+    enableSwoopingCamera: false,
+    enableRotation: false,
+    color: 0xff8e00,
+    metalness: 0.01,
+    roughness: 0.1,
+    transmission: 1,
+    ior: 1.3,
+    reflectivity: 0.2,
+    thickness: 5,
+    envMapIntensity: 1.5,
+    clearcoat: 0.1,
+    clearcoatRoughness: 0.1,
+    normalScale: 0.05,
+    clearcoatNormalScale: 0.2,
+    normalRepeat: 3,
+    bloomThreshold: 0.0,
+    bloomStrength: 0.0,
+    bloomRadius: 0.0,
+  };
+
+  const soundwaveOptions = {
+    enableSwoopingCamera: false,
+    enableRotation: false,
+    color: 0xff8e00,
+    metalness: 0.01,
+    roughness: 0.1,
+    transmission: 1,
+    ior: 1.3,
+    reflectivity: 0.2,
+    thickness: 5,
+    envMapIntensity: 1.5,
+    clearcoat: 0.1,
+    clearcoatRoughness: 0.1,
+    normalScale: 0.05,
+    clearcoatNormalScale: 0.2,
+    normalRepeat: 3,
+    bloomThreshold: 0.0,
+    bloomStrength: 0.0,
+    bloomRadius: 0.0,
+  };
   // Setup
   const renderer = new THREE.WebGLRenderer({
     context,
@@ -180,20 +263,92 @@ const sketch = ({ context, canvas, width, height }) => {
 
   const arrowMaterial = new THREE.MeshPhysicalMaterial({
     color: 0xffffff,
-    metalness: swirlOptions.metalness,
-    roughness: swirlOptions.roughness,
-    transmission: swirlOptions.transmission,
-    ior: swirlOptions.ior,
-    reflectivity: swirlOptions.reflectivity,
-    thickness: swirlOptions.thickness,
+    metalness: arrowOptions.metalness,
+    roughness: arrowOptions.roughness,
+    transmission: arrowOptions.transmission,
+    ior: arrowOptions.ior,
+    reflectivity: arrowOptions.reflectivity,
+    thickness: arrowOptions.thickness,
     envMap: hdrEquirect,
-    envMapIntensity: swirlOptions.envMapIntensity,
-    clearcoat: swirlOptions.clearcoat,
-    clearcoatRoughness: swirlOptions.clearcoatRoughness,
-    normalScale: new THREE.Vector2(swirlOptions.normalScale),
+    envMapIntensity: arrowOptions.envMapIntensity,
+    clearcoat: arrowOptions.clearcoat,
+    clearcoatRoughness: arrowOptions.clearcoatRoughness,
+    normalScale: new THREE.Vector2(arrowOptions.normalScale),
     normalMap: normalMapTexture,
     clearcoatNormalMap: normalMapTexture,
-    clearcoatNormalScale: new THREE.Vector2(swirlOptions.clearcoatNormalScale),
+    clearcoatNormalScale: new THREE.Vector2(arrowOptions.clearcoatNormalScale),
+  });
+
+  const pebbleaMaterial = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    metalness: pebbleaOptions.metalness,
+    roughness: pebbleaOptions.roughness,
+    transmission: pebbleaOptions.transmission,
+    ior: pebbleaOptions.ior,
+    reflectivity: pebbleaOptions.reflectivity,
+    thickness: pebbleaOptions.thickness,
+    envMap: hdrEquirect,
+    envMapIntensity: pebbleaOptions.envMapIntensity,
+    clearcoat: pebbleaOptions.clearcoat,
+    clearcoatRoughness: pebbleaOptions.clearcoatRoughness,
+    normalScale: new THREE.Vector2(pebbleaOptions.normalScale),
+    normalMap: normalMapTexture,
+    clearcoatNormalMap: normalMapTexture,
+    clearcoatNormalScale: new THREE.Vector2(pebbleaOptions.clearcoatNormalScale),
+  });
+
+  const pebblebMaterial = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    metalness: pebblebOptions.metalness,
+    roughness: pebblebOptions.roughness,
+    transmission: pebblebOptions.transmission,
+    ior: pebblebOptions.ior,
+    reflectivity: pebblebOptions.reflectivity,
+    thickness: pebblebOptions.thickness,
+    envMap: hdrEquirect,
+    envMapIntensity: pebblebOptions.envMapIntensity,
+    clearcoat: pebblebOptions.clearcoat,
+    clearcoatRoughness: pebblebOptions.clearcoatRoughness,
+    normalScale: new THREE.Vector2(pebblebOptions.normalScale),
+    normalMap: normalMapTexture,
+    clearcoatNormalMap: normalMapTexture,
+    clearcoatNormalScale: new THREE.Vector2(pebblebOptions.clearcoatNormalScale),
+  });
+
+  const pebblecMaterial = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    metalness: pebblecOptions.metalness,
+    roughness: pebblecOptions.roughness,
+    transmission: pebblecOptions.transmission,
+    ior: pebblecOptions.ior,
+    reflectivity: pebblecOptions.reflectivity,
+    thickness: pebblecOptions.thickness,
+    envMap: hdrEquirect,
+    envMapIntensity: pebblecOptions.envMapIntensity,
+    clearcoat: pebblecOptions.clearcoat,
+    clearcoatRoughness: pebblecOptions.clearcoatRoughness,
+    normalScale: new THREE.Vector2(pebblecOptions.normalScale),
+    normalMap: normalMapTexture,
+    clearcoatNormalMap: normalMapTexture,
+    clearcoatNormalScale: new THREE.Vector2(pebblecOptions.clearcoatNormalScale),
+  });
+
+  const soundwaveMaterial = new THREE.MeshPhysicalMaterial({
+    color: 0xffffff,
+    metalness: soundwaveOptions.metalness,
+    roughness: soundwaveOptions.roughness,
+    transmission: soundwaveOptions.transmission,
+    ior: soundwaveOptions.ior,
+    reflectivity: soundwaveOptions.reflectivity,
+    thickness: soundwaveOptions.thickness,
+    envMap: hdrEquirect,
+    envMapIntensity: soundwaveOptions.envMapIntensity,
+    clearcoat: soundwaveOptions.clearcoat,
+    clearcoatRoughness: soundwaveOptions.clearcoatRoughness,
+    normalScale: new THREE.Vector2(soundwaveOptions.normalScale),
+    normalMap: normalMapTexture,
+    clearcoatNormalMap: normalMapTexture,
+    clearcoatNormalScale: new THREE.Vector2(soundwaveOptions.clearcoatNormalScale),
   });
   
   // Define variables to store the translation values
@@ -231,17 +386,56 @@ const sketch = ({ context, canvas, width, height }) => {
     
     swirlMesh.rotation.y = swirlrotationX * 10;
 
-    arrowMesh.rotation.x = rotationX;
-    arrowMesh.rotation.y = rotationY;
-    arrowMesh.rotation.z = rotationZ;
+    arrowMesh.rotation.x = rotationX / 2;
+    // arrowMesh.rotation.y = rotationY;
+    // arrowMesh.rotation.z = rotationZ;
     arrowMesh.position.x = translationX / 2;
     arrowMesh.position.y = translationY / 2;
 
+    pebbleaMesh.rotation.x = rotationX;
+    pebbleaMesh.rotation.y = rotationY;
+    pebbleaMesh.rotation.z = rotationZ;
+    pebbleaMesh.position.x = translationX / 2;
+    pebbleaMesh.position.y = translationY / 2;
+
+    pebblebMesh.rotation.x = rotationX;
+    pebblebMesh.rotation.y = rotationY;
+    pebblebMesh.rotation.z = rotationZ;
+    pebblebMesh.position.x = translationX / 2;
+    pebblebMesh.position.y = translationY / 2;
+
+    pebblecMesh.rotation.x = rotationX;
+    pebblecMesh.rotation.y = rotationY;
+    pebblecMesh.rotation.z = rotationZ;
+    pebblecMesh.position.x = translationX / 2;
+    pebblecMesh.position.y = translationY / 2;
+
+    pebbleaMesh.rotation.x = rotationX;
+    pebbleaMesh.rotation.y = rotationY;
+    pebbleaMesh.rotation.z = rotationZ;
+    pebbleaMesh.position.x = translationX / 2;
+    pebbleaMesh.position.y = translationY / 2;
+
+    pebblebMesh.rotation.x = rotationX;
+    pebblebMesh.rotation.y = rotationY;
+    pebblebMesh.rotation.z = rotationZ;
+    pebblebMesh.position.x = translationX / 2;
+    pebblebMesh.position.y = translationY / 2;
+
+    soundwaveMesh.rotation.x = rotationX;
+    soundwaveMesh.rotation.y = rotationY;
+    soundwaveMesh.rotation.z = rotationZ;
+    soundwaveMesh.position.x = translationX / 2;
+    soundwaveMesh.position.y = translationY / 2;
   }
 
   let heartMeshName = "";
   let swirlMeshName = "";
   let arrowMeshName = "";
+  let pebbleaMeshName = "";
+  let pebblebMeshName = "";
+  let pebblecMeshName = "";
+  let soundwaveMeshName = "";
 
   // Load GLTF heart model
   new THREE.GLTFLoader().load("src/heart.glb", (gltf) => {
@@ -292,7 +486,6 @@ const sketch = ({ context, canvas, width, height }) => {
     swirlMesh.scale.set(0.02, 0.02, 0.02);
     scene.add(swirlMesh);
     
-
     // Discard the loaded model
     gltf.scene.children.forEach((child) => {
       child.swirlGeometry.dispose();
@@ -316,11 +509,11 @@ const sketch = ({ context, canvas, width, height }) => {
     // Adjust geometry to suit our scene
     arrowGeometry.rotateX(Math.PI / 0.4);
     arrowGeometry.rotateY(Math.PI / 0.5);
-    arrowGeometry.translate(0, 10, 5);
+    arrowGeometry.translate(-100, -100, 5);
 
     // Create a new mesh and place it in the scene
     arrowMesh = new THREE.Mesh(arrowGeometry, arrowMaterial);
-    arrowMesh.scale.set(0.02, 0.02, 0.02);
+    arrowMesh.scale.set(0.015, 0.015, 0.015);
     scene.add(arrowMesh);
     
 
@@ -336,6 +529,130 @@ const sketch = ({ context, canvas, width, height }) => {
     let arrowVis = arrowMesh.visible = true;
   });
 
+  // Load GLTF pebblea model
+  new THREE.GLTFLoader().load("src/pebble_a.glb", (gltf) => {
+    const pebbleaModel = gltf.scene.children.find((mesh) => mesh.name === "pebble_a_remesh");
+    const pebbleaMeshName = pebbleaModel.name; // Store the mesh name in a variable
+    console.log(pebbleaMeshName);
+    // Just copy the geometry from the loaded model
+    const pebbleaGeometry = pebbleaModel.geometry.clone();
+
+    // Adjust geometry to suit our scene
+    pebbleaGeometry.rotateX(Math.PI / 0.4);
+    pebbleaGeometry.rotateY(Math.PI / 0.5);
+    pebbleaGeometry.translate(0, 10, 5);
+
+    // Create a new mesh and place it in the scene
+    pebbleaMesh = new THREE.Mesh(pebbleaGeometry, pebbleaMaterial);
+    pebbleaMesh.scale.set(0.02, 0.02, 0.02);
+    scene.add(pebbleaMesh);
+    
+
+    // Discard the loaded model
+    gltf.scene.children.forEach((child) => {
+      child.pebbleaGeometry.dispose();
+      child.pebbleaMaterial.dispose();
+    });
+
+    pebbleaMesh.rotation.x = rotationX;
+    pebbleaMesh.position.x = translationX;
+    pebbleaMesh.position.y = translationY;
+    let pebbleaVis = pebbleaMesh.visible = true;
+  });
+
+  // Load GLTF pebbleb model
+  new THREE.GLTFLoader().load("src/pebble_b.glb", (gltf) => {
+    const pebblebModel = gltf.scene.children.find((mesh) => mesh.name === "pebble_a_remesh");
+    const pebblebMeshName = pebblebModel.name; // Store the mesh name in a variable
+    console.log(pebblebMeshName);
+    // Just copy the geometry from the loaded model
+    const pebblebGeometry = pebblebModel.geometry.clone();
+
+    // Adjust geometry to suit our scene
+    pebblebGeometry.rotateX(Math.PI / 0.4);
+    pebblebGeometry.rotateY(Math.PI / 0.5);
+    pebblebGeometry.translate(0, 10, 5);
+
+    // Create a new mesh and place it in the scene
+    pebblebMesh = new THREE.Mesh(pebblebGeometry, pebblebMaterial);
+    pebblebMesh.scale.set(0.02, 0.02, 0.02);
+    scene.add(pebblebMesh);
+    
+
+    // Discard the loaded model
+    gltf.scene.children.forEach((child) => {
+      child.pebblebGeometry.dispose();
+      child.pebblebMaterial.dispose();
+    });
+
+    pebblebMesh.rotation.x = rotationX;
+    pebblebMesh.position.x = translationX;
+    pebblebMesh.position.y = translationY;
+    let pebblebVis = pebblebMesh.visible = true;
+  });
+
+  // Load GLTF pebblec model
+  new THREE.GLTFLoader().load("src/pebble_c.glb", (gltf) => {
+    const pebblecModel = gltf.scene.children.find((mesh) => mesh.name === "pebble_c_remesh");
+    const pebblecMeshName = pebblecModel.name; // Store the mesh name in a variable
+    console.log(pebblecMeshName);
+    // Just copy the geometry from the loaded model
+    const pebblecGeometry = pebblecModel.geometry.clone();
+
+    // Adjust geometry to suit our scene
+    pebblecGeometry.rotateX(Math.PI / 0.4);
+    pebblecGeometry.rotateY(Math.PI / 0.5);
+    pebblecGeometry.translate(0, 10, 5);
+
+    // Create a new mesh and place it in the scene
+    pebblecMesh = new THREE.Mesh(pebblecGeometry, pebblecMaterial);
+    pebblecMesh.scale.set(0.02, 0.02, 0.02);
+    scene.add(pebblecMesh);
+    
+
+    // Discard the loaded model
+    gltf.scene.children.forEach((child) => {
+      child.pebblecGeometry.dispose();
+      child.pebblecMaterial.dispose();
+    });
+
+    pebblecMesh.rotation.x = rotationX;
+    pebblecMesh.position.x = translationX;
+    pebblecMesh.position.y = translationY;
+    let pebblecVis = pebblecMesh.visible = true;
+  });
+
+  
+  // Load GLTF soundwave model
+  new THREE.GLTFLoader().load("src/soundwave.glb", (gltf) => {
+    const soundwaveModel = gltf.scene.children.find((mesh) => mesh.name === "soundwave");
+    const soundwaveMeshName = soundwaveModel.name; // Store the mesh name in a variable
+    console.log(soundwaveMeshName);
+    // Just copy the geometry from the loaded model
+    const soundwaveGeometry = soundwaveModel.geometry.clone();
+
+    // Adjust geometry to suit our scene
+    soundwaveGeometry.rotateX(Math.PI / 0.4);
+    soundwaveGeometry.rotateY(Math.PI / 0.5);
+    soundwaveGeometry.translate(0, 10, 5);
+
+    // Create a new mesh and place it in the scene
+    soundwaveMesh = new THREE.Mesh(soundwaveGeometry, soundwaveMaterial);
+    soundwaveMesh.scale.set(0.02, 0.02, 0.02);
+    scene.add(soundwaveMesh);
+    
+
+    // Discard the loaded model
+    gltf.scene.children.forEach((child) => {
+      child.soundwaveGeometry.dispose();
+      child.soundwaveMaterial.dispose();
+    });
+
+    soundwaveMesh.rotation.x = rotationX;
+    soundwaveMesh.position.x = translationX;
+    soundwaveMesh.position.y = translationY;
+    let soundwaveVis = soundwaveMesh.visible = true;
+  });
   // Create six sections and append them to the body
 
   // Add the canvas with fixed position
@@ -353,22 +670,22 @@ const sketch = ({ context, canvas, width, height }) => {
   // Set body display to block
   document.body.style.display = 'block';
 
-  const modelOne = 'src/pebble_a.glb';
-  const modelTwo = 'src/pebble_b.glb';
-  const modelThree = 'src/pebble_c.glb';
+  const modelOne = 'src/pebblea.glb';
+  const modelTwo = 'src/pebbleb.glb';
+  const modelThree = 'src/pebblec.glb';
   const modelFour = 'src/swirl.glb';
   const modelFive = 'src/soundwave.glb';
   const modelSix = 'src/arrow.glb';
   const modelSeven = 'src/heart.glb';
   const modelEight = 'src/brain.glb';
   const meshOne = 'Heart';
-  const meshTwo = 'pebble_a_remesh';
+  const meshTwo = 'pebblea_remesh';
   const meshThree = 'swirl';
   const meshFour = 'soundwave';
   const meshFive = 'soundwave';
   const meshSix = 'arrow';
   const meshSeven = 'Heart';
-  // const meshEight = 'brain';
+  // const meshEight = 'brain' d;
 
   // Create sections below the canvas
   const models = [modelOne, modelTwo, modelThree, modelFour, modelFive, modelSix];
@@ -403,11 +720,14 @@ function logVisibleSections() {
       if (isInViewport(section)) {
           const meshValue = section.getAttribute('data-mesh');
           if (meshValue === heartMeshName) {
-            // console.log(`Section "${meshValue}" is in the viewport and matches heartMeshName.`);
+            //console.log(`Section "${meshValue}" is in the viewport and matches heartMeshName.`);
            }
           if (meshValue === swirlMeshName) {
            // console.log(`Section "${meshValue}" is in the viewport and matches swirlMeshName.`);
-        }
+          }
+          if (meshValue === arrowMeshName) {
+            // console.log(`Section "${meshValue}" is in the viewport and matches arrowMeshName.`);
+           }
 
       }
   });
@@ -428,73 +748,138 @@ window.addEventListener('scroll', logVisibleSections);
   gui.add(options, "enableRotation").onChange(() => {
     if (heartMesh) heartMesh.rotation.set(0, 0, 0);
     if (swirlMesh) swirlMesh.rotation.set(0, 0, 0);
-    if (arrowMesh) swirlMesh.rotation.set(0, 0, 0);
+    if (arrowMesh) arrowMesh.rotation.set(0, 0, 0);
+    if (pebbleaMesh) pebbleaMesh.rotation.set(0, 0, 0);
+    if (pebblebMesh) pebblebMesh.rotation.set(0, 0, 0);
+    if (pebblecMesh) pebblecMesh.rotation.set(0, 0, 0);
+    if (soundwaveMesh) soundwaveMesh.rotation.set(0, 0, 0);
   });
 
   gui.addColor(options, "color").onChange((val) => {
     heartMaterial.color.set(val);
     swirlMaterial.color.set(val);
     arrowMaterial.color.set(val);
+    pebbleaMaterial.color.set(val);
+    pebblebMaterial.color.set(val);
+    pebblecMaterial.color.set(val);
+    soundwaveMaterial.color.set(val);
   });
 
   gui.add(options, "roughness", 0, 1, 0.01).onChange((val) => {
     heartMaterial.roughness = val;
     swirlMaterial.roughness = val;
+    arrowMaterial.roughness = val;
+    pebbleaMaterial.roughness = val;
+    pebblebMaterial.roughness = val;
+    pebblecMaterial.roughness = val;
+    soundwaveMaterial.roughness = val;
   });
 
   gui.add(options, "metalness", 0, 1, 0.01).onChange((val) => {
     heartMaterial.metalness = val;
     swirlMaterial.metalness = val;
+    arrowMaterial.metalness = val;
+    pebbleaMaterial.metalness = val;
+    pebblebMaterial.metalness = val;
+    pebblecMaterial.metalness = val;
+    soundwaveMaterial.metalness = val;
+   
   });
 
   gui.add(options, "transmission", 0, 1, 0.01).onChange((val) => {
     heartMaterial.transmission = val;
     swirlMaterial.transmission = val;
+    arrowMaterial.transmission = val;
+    pebbleaMaterial.transmission = val;
+    pebblebMaterial.transmission = val;
+    pebblecMaterial.transmission = val;
+    soundwaveMaterial.transmission = val;
   });
 
   gui.add(options, "ior", 1, 2.33, 0.01).onChange((val) => {
     heartMaterial.ior = val;
     swirlMaterial.ior = val;
+    arrowMaterial.ior = val;
+    pebbleaMaterial.ior = val;
+    pebblebMaterial.ior = val;
+    pebblecMaterial.ior = val;
+    soundwaveMaterial.ior = val;
   });
 
   gui.add(options, "reflectivity", 0, 1, 0.01).onChange((val) => {
     heartMaterial.reflectivity = val;
     swirlMaterial.reflectivity = val;
+    arrowMaterial.reflectivity = val;
+    pebbleaMaterial.reflectivity = val;
+    pebblebMaterial.reflectivity = val;
+    pebblecMaterial.reflectivity = val;
+    soundwaveMaterial.reflectivity = val;
   });
 
   gui.add(options, "thickness", 0, 5, 0.1).onChange((val) => {
     heartMaterial.thickness = val;
     swirlMaterial.thickness = val;
+    arrowMaterial.thickness = val;
+    pebbleaMaterial.thickness = val;
+    pebblebMaterial.thickness = val;
+    pebblecMaterial.thickness = val;
+    soundwaveMaterial.thickness = val;
   });
 
   gui.add(options, "envMapIntensity", 0, 3, 0.1).onChange((val) => {
     heartMaterial.envMapIntensity = val;
     swirlMaterial.envMapIntensity = val;
+    arrowMaterial.envMapIntensity = val;
+    pebbleaMaterial.envMapIntensity = val;
+    pebblebMaterial.envMapIntensity = val;
+    pebblecMaterial.envMapIntensity = val;
+    soundwaveMaterial.envMapIntensity = val;
   });
 
   gui.add(options, "clearcoat", 0, 1, 0.01).onChange((val) => {
     heartMaterial.clearcoat = val;
     swirlMaterial.clearcoat = val;
+    arrowMaterial.clearcoat = val;
+    pebbleaMaterial.clearcoat = val;
+    pebblebMaterial.clearcoat = val;
+    pebblecMaterial.clearcoat = val;
+    soundwaveMaterial.clearcoat = val;
   });
 
   gui.add(options, "clearcoatRoughness", 0, 1, 0.01).onChange((val) => {
     heartMaterial.clearcoatRoughness = val;
     swirlMaterial.clearcoatRoughness = val;
+    arrowMaterial.clearcoatRoughness = val;
+    pebbleaMaterial.clearcoatRoughness = val;
+    pebblebMaterial.clearcoatRoughness = val;
+    pebblecMaterial.clearcoatRoughness = val;
+    soundwaveMaterial.clearcoatRoughness = val;
   });
 
   gui.add(options, "normalScale", 0, 5, 0.01).onChange((val) => {
     heartMaterial.normalScale.set(val, val);
     swirlMaterial.normalScale.set(val, val);
+    arrowMaterial.normalScale.set(val, val);
+    pebbleaMaterial.normalScale.set(val, val);
+    pebblebMaterial.normalScale.set(val, val);
+    pebblecMaterial.normalScale.set(val, val);
+    soundwaveMaterial.normalScale.set(val, val);
   });
 
   gui.add(options, "clearcoatNormalScale", 0, 5, 0.01).onChange((val) => {
     heartMaterial.clearcoatNormalScale.set(val, val);
     swirlMaterial.clearcoatNormalScale.set(val, val);
+    arrowMaterial.clearcoatNormalScale.set(val, val);
+    pebbleaMaterial.clearcoatNormalScale.set(val, val);
+    pebblebMaterial.clearcoatNormalScale.set(val, val);
+    pebblecMaterial.clearcoatNormalScale.set(val, val);
+    soundwaveMaterial.clearcoatNormalScale.set(val, val);
   });
 
   gui.add(options, "normalRepeat", 1, 4, 1).onChange((val) => {
     normalMapTexture.repeat.set(val, val);
     swirlMaterial.repeat.set(val, val);
+    
   });
   
   // Update
@@ -555,6 +940,14 @@ window.addEventListener('scroll', logVisibleSections);
       swirlMaterial.dispose();
       arrowMesh.geometry.dispose();
       arrowMaterial.dispose();
+      pebbleaMesh.geometry.dispose();
+      pebbleaMaterial.dispose();
+      pebblebMesh.geometry.dispose();
+      pebblebMaterial.dispose();
+      pebblecMesh.geometry.dispose();
+      pebblecMaterial.dispose();
+      soundwaveMesh.geometry.dispose();
+      soundwaveMaterial.dispose();
       hdrEquirect.dispose();
       controls.dispose();
       renderer.dispose();
