@@ -206,7 +206,7 @@ const sketch = ({ context, canvas, width, height }) => {
 
   // Content
   const textureLoader = new THREE.TextureLoader();
-  const bgTexture = textureLoader.load("src/texture.png");
+  // const bgTexture = textureLoader.load("src/texture.png");
   // const bgTexture = textureLoader.load("src/textures/60_minute_thesis_black.png");
   // const bgTexture = textureLoader.load("src/textures/60_minute_thesis_white.png");
   // const bgTexture = textureLoader.load("src/textures/about_what_matters_black.png");
@@ -231,6 +231,11 @@ const sketch = ({ context, canvas, width, height }) => {
   // const bgTexture = textureLoader.load("src/textures/what_matters_white.png");
   // const bgTexture = textureLoader.load("src/textures/why_it_matters_black.png");
   // const bgTexture = textureLoader.load("src/textures/why_it_matters_white.png");
+  // const bgTexture = textureLoader.load("src/textures/50_million.png");
+  // const bgTexture = textureLoader.load("src/textures/dolton_house.png");
+  // const bgTexture = textureLoader.load("src/textures/media.png");
+  // const bgTexture = textureLoader.load("src/textures/speakers.png");
+  // const bgTexture = textureLoader.load("src/textures/summary.png");
 
   const bgGeometry = new THREE.PlaneGeometry(10.6666, 6); // asoect ration for the background image containined the h1 text
   const bgMaterial = new THREE.MeshBasicMaterial({ map: bgTexture });
