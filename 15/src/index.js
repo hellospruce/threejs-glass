@@ -1,5 +1,7 @@
 const canvasSketch = require("canvas-sketch");
 
+const ASSET_SOURCE = window.location.protocol.includes('https') ? `https://spruce-cdn.s3.ap-southeast-2.amazonaws.com/sohn-threejs-glass/` : './'
+
 // Import ThreeJS and assign it to global scope
 // This way examples/ folder can use it too
 const THREE = require("three");
@@ -206,36 +208,36 @@ const sketch = ({ context, canvas, width, height }) => {
 
   // Content
   const textureLoader = new THREE.TextureLoader();
-  // const bgTexture = textureLoader.load("src/texture.png");
-  // const bgTexture = textureLoader.load("src/textures/60_minute_thesis_black.png");
-  // const bgTexture = textureLoader.load("src/textures/60_minute_thesis_white.png");
-  // const bgTexture = textureLoader.load("src/textures/about_what_matters_black.png");
-  // const bgTexture = textureLoader.load("src/textures/about_what_matters_white.png");
-  // const bgTexture = textureLoader.load("src/textures/fresh_perspective_black.png");
-  // const bgTexture = textureLoader.load("src/textures/fresh_perspective_white.png");
-  // const bgTexture = textureLoader.load("src/textures/hero_black.png");
-  // const bgTexture = textureLoader.load("src/textures/hero_white.png");
-  // const bgTexture = textureLoader.load("src/textures/investment_for_good_black.png");
-  // const bgTexture = textureLoader.load("src/textures/investment_for_good_white.png");
-  // const bgTexture = textureLoader.load("src/textures/leadership_that_reflects_black.png");
-  // const bgTexture = textureLoader.load("src/textures/leadership_that_reflects_white.png");
-  // const bgTexture = textureLoader.load("src/textures/meet_8_minute_power_pitch_black.png");
-  // const bgTexture = textureLoader.load("src/textures/meet_8_minute_power_pitch_white.png");
-  // const bgTexture = textureLoader.load("src/textures/Provoking_the_paradigm_black.png");
-  // const bgTexture = textureLoader.load("src/textures/Provoking_the_paradigm_white.png");
-  // const bgTexture = textureLoader.load("src/textures/refacts_tomorrow_black.png");
-  // const bgTexture = textureLoader.load("src/textures/refacts_tomorrow_white.png");
-  // const bgTexture = textureLoader.load("src/textures/transform_tomorrow_black.png");
-  // const bgTexture = textureLoader.load("src/textures/transform_tomorrow_white.png");
-  // const bgTexture = textureLoader.load("src/textures/what_matters_black.png");
-  // const bgTexture = textureLoader.load("src/textures/what_matters_white.png");
-  // const bgTexture = textureLoader.load("src/textures/why_it_matters_black.png");
-  // const bgTexture = textureLoader.load("src/textures/why_it_matters_white.png");
-  // const bgTexture = textureLoader.load("src/textures/50_million.png");
-  // const bgTexture = textureLoader.load("src/textures/dolton_house.png");
-  // const bgTexture = textureLoader.load("src/textures/media.png");
-  // const bgTexture = textureLoader.load("src/textures/speakers.png");
-  // const bgTexture = textureLoader.load("src/textures/summary.png");
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/texture.png`);
+  const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/60_minute_thesis_black.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/60_minute_thesis_white.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/about_what_matters_black.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/about_what_matters_white.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/fresh_perspective_black.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/fresh_perspective_white.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/hero_black.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/hero_white.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/investment_for_good_black.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/investment_for_good_white.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/leadership_that_reflects_black.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/leadership_that_reflects_white.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/meet_8_minute_power_pitch_black.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/meet_8_minute_power_pitch_white.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/Provoking_the_paradigm_black.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/Provoking_the_paradigm_white.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/refacts_tomorrow_black.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/refacts_tomorrow_white.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/transform_tomorrow_black.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/transform_tomorrow_white.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/what_matters_black.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/what_matters_white.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/why_it_matters_black.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/why_it_matters_white.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/50_million.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/dolton_house.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/media.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/speakers.png`);
+  // const bgTexture = textureLoader.load(`${ASSET_SOURCE}assets/textures/summary.png`);
 
   const bgGeometry = new THREE.PlaneGeometry(10.6666, 6); // asoect ration for the background image containined the h1 text
   const bgMaterial = new THREE.MeshBasicMaterial({ map: bgTexture });
@@ -244,13 +246,13 @@ const sketch = ({ context, canvas, width, height }) => {
   scene.add(bgMesh);
 
   const hdrEquirect = new THREE.RGBELoader().load(
-    "src/empty_warehouse_01_2k.hdr",
+    `${ASSET_SOURCE}assets/empty_warehouse_01_2k.hdr`,
     () => {
       hdrEquirect.mapping = THREE.EquirectangularReflectionMapping;
     }
   );
 
-  const normalMapTexture = textureLoader.load("src/normal.jpg");
+  const normalMapTexture = textureLoader.load(`${ASSET_SOURCE}assets/normal.jpg`);
   normalMapTexture.wrapS = THREE.RepeatWrapping;
   normalMapTexture.wrapT = THREE.RepeatWrapping;
   normalMapTexture.repeat.set(options.normalRepeat, options.normalRepeat);
@@ -468,7 +470,7 @@ const sketch = ({ context, canvas, width, height }) => {
   let soundwaveMeshName = "";
 
   // Load GLTF heart model
-  new THREE.GLTFLoader().load("src/heart.glb", (gltf) => {
+  new THREE.GLTFLoader().load(`${ASSET_SOURCE}assets/heart.glb`, (gltf) => {
     
     const heartModel = gltf.scene.children.find((mesh) => mesh.name === "Heart");
     const heartMeshName = heartModel.name; // Store the mesh name in a variable
@@ -499,7 +501,7 @@ const sketch = ({ context, canvas, width, height }) => {
   });
 
   // Load GLTF swirl model
-  new THREE.GLTFLoader().load("src/swirl.glb", (gltf) => {
+  new THREE.GLTFLoader().load(`${ASSET_SOURCE}assets/swirl.glb`, (gltf) => {
     const swirlModel = gltf.scene.children.find((mesh) => mesh.name === "swirl");
     const swirlMeshName = swirlModel.name; // Store the mesh name in a variable
     console.log(swirlMeshName);
@@ -529,7 +531,7 @@ const sketch = ({ context, canvas, width, height }) => {
   });
 
   // Load GLTF arrow model
-  new THREE.GLTFLoader().load("src/arrow.glb", (gltf) => {
+  new THREE.GLTFLoader().load(`${ASSET_SOURCE}assets/arrow.glb`, (gltf) => {
     const arrowModel = gltf.scene.children.find((mesh) => mesh.name === "arrow");
     const arrowMeshName = arrowModel.name; // Store the mesh name in a variable
     console.log(arrowMeshName);
@@ -560,7 +562,7 @@ const sketch = ({ context, canvas, width, height }) => {
   });
 
   // Load GLTF pebblea model
-  new THREE.GLTFLoader().load("src/pebble_a.glb", (gltf) => {
+  new THREE.GLTFLoader().load(`${ASSET_SOURCE}assets/pebble_a.glb`, (gltf) => {
     const pebbleaModel = gltf.scene.children.find((mesh) => mesh.name === "pebble_a_remesh");
     const pebbleaMeshName = pebbleaModel.name; // Store the mesh name in a variable
     console.log(pebbleaMeshName);
@@ -591,7 +593,7 @@ const sketch = ({ context, canvas, width, height }) => {
   });
 
   // Load GLTF pebbleb model
-  new THREE.GLTFLoader().load("src/pebble_b.glb", (gltf) => {
+  new THREE.GLTFLoader().load(`${ASSET_SOURCE}assets/pebble_b.glb`, (gltf) => {
     const pebblebModel = gltf.scene.children.find((mesh) => mesh.name === "pebble_a_remesh");
     const pebblebMeshName = pebblebModel.name; // Store the mesh name in a variable
     console.log(pebblebMeshName);
@@ -622,7 +624,7 @@ const sketch = ({ context, canvas, width, height }) => {
   });
 
   // Load GLTF pebblec model
-  new THREE.GLTFLoader().load("src/pebble_c.glb", (gltf) => {
+  new THREE.GLTFLoader().load(`${ASSET_SOURCE}assets/pebble_c.glb`, (gltf) => {
     const pebblecModel = gltf.scene.children.find((mesh) => mesh.name === "pebble_c_remesh");
     const pebblecMeshName = pebblecModel.name; // Store the mesh name in a variable
     console.log(pebblecMeshName);
@@ -654,7 +656,7 @@ const sketch = ({ context, canvas, width, height }) => {
 
   
   // Load GLTF soundwave model
-  new THREE.GLTFLoader().load("src/soundwave.glb", (gltf) => {
+  new THREE.GLTFLoader().load(`${ASSET_SOURCE}assets/soundwave.glb`, (gltf) => {
     const soundwaveModel = gltf.scene.children.find((mesh) => mesh.name === "soundwave");
     const soundwaveMeshName = soundwaveModel.name; // Store the mesh name in a variable
     console.log(soundwaveMeshName);
@@ -699,73 +701,6 @@ const sketch = ({ context, canvas, width, height }) => {
 
   // Set body display to block
   document.body.style.display = 'block';
-
-  const modelOne = 'src/pebblea.glb';
-  const modelTwo = 'src/pebbleb.glb';
-  const modelThree = 'src/pebblec.glb';
-  const modelFour = 'src/swirl.glb';
-  const modelFive = 'src/soundwave.glb';
-  const modelSix = 'src/arrow.glb';
-  const modelSeven = 'src/heart.glb';
-  const modelEight = 'src/brain.glb';
-  const meshOne = 'Heart';
-  const meshTwo = 'pebblea_remesh';
-  const meshThree = 'swirl';
-  const meshFour = 'soundwave';
-  const meshFive = 'soundwave';
-  const meshSix = 'arrow';
-  const meshSeven = 'Heart';
-  // const meshEight = 'brain' d;
-
-  // Create sections below the canvas
-  const models = [modelOne, modelTwo, modelThree, modelFour, modelFive, modelSix];
-  const meshes = [meshOne, meshTwo, meshThree, meshFour, meshFive, meshSix];
-
-  for (let i = 0; i < 6; i++) {
-    const section = document.createElement("div");
-    section.className = "section";
-    section.style.height = "100vh"; // Set the section's height to 100vh
-    section.id = `section-${i}`; // Assign a unique ID to each section
-
-    // Add data attributes with values from the corresponding variables
-    section.setAttribute('data-model', models[i]);
-    section.setAttribute('data-mesh', meshes[i]);
-
-    document.body.appendChild(section);
-  }
-
-// Function to check if an element is in the viewport
-function isInViewport(element) {
-  const rect = element.getBoundingClientRect();
-  return (
-    rect.bottom > 0 &&
-    rect.top < window.innerHeight
-  );
-}
-
-// Function to log the data-mesh attribute if a section is in the viewport
-function logVisibleSections() {
-  const sections = document.querySelectorAll('[data-mesh]');
-  sections.forEach(section => {
-      if (isInViewport(section)) {
-          const meshValue = section.getAttribute('data-mesh');
-          if (meshValue === heartMeshName) {
-            //console.log(`Section "${meshValue}" is in the viewport and matches heartMeshName.`);
-           }
-          if (meshValue === swirlMeshName) {
-           // console.log(`Section "${meshValue}" is in the viewport and matches swirlMeshName.`);
-          }
-          if (meshValue === arrowMeshName) {
-            // console.log(`Section "${meshValue}" is in the viewport and matches arrowMeshName.`);
-           }
-
-      }
-  });
-}
-
-// Call the logVisibleSections function when the page loads or when scrolling
-document.addEventListener('DOMContentLoaded', logVisibleSections);
-window.addEventListener('scroll', logVisibleSections);
 
   // GUI
   // ---
@@ -988,3 +923,4 @@ window.addEventListener('scroll', logVisibleSections);
 
 
 canvasSketch(sketch, settings);
+console.log("threejs-glass initialized...")
