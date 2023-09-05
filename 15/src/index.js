@@ -464,8 +464,8 @@ const sketch = ({ context, canvas, width, height }) => {
     
     // Discard the loaded model
     gltf.scene.children.forEach((child) => {
-      child.swirlGeometry?.dispose();
-      child.swirlMaterial?.dispose();
+      if (child.swirlGeometry) child.swirlGeometry.dispose();
+      if (child.swirlMaterial) child.swirlMaterial.dispose();
     });
 
     swirlMesh.rotation.x = rotationX;
@@ -495,8 +495,8 @@ const sketch = ({ context, canvas, width, height }) => {
 
     // Discard the loaded model
     gltf.scene.children.forEach((child) => {
-      child.arrowGeometry?.dispose();
-      child.arrowMaterial?.dispose();
+      if (child.arrowGeometry) child.arrowGeometry.dispose();
+      if (child.arrowMaterial) child.arrowMaterial.dispose();
     });
 
     arrowMesh.rotation.x = rotationX;
@@ -525,8 +525,8 @@ const sketch = ({ context, canvas, width, height }) => {
 
     // Discard the loaded model
     gltf.scene.children.forEach((child) => {
-      child.pebbleaGeometry?.dispose();
-      child.pebbleaMaterial?.dispose();
+      if (child.pebbleaGeometry) child.pebbleaGeometry.dispose();
+      if (child.pebbleaMaterial) child.pebbleaMaterial.dispose();
     });
 
     pebbleaMesh.rotation.x = rotationX;
@@ -556,8 +556,8 @@ const sketch = ({ context, canvas, width, height }) => {
 
     // Discard the loaded model
     gltf.scene.children.forEach((child) => {
-      child.pebblebGeometry?.dispose();
-      child.pebblebMaterial?.dispose();
+      if (child.pebblebGeometry) child.pebblebGeometry.dispose();
+      if (child.pebblebMaterial) child.pebblebMaterial.dispose();
     });
 
     pebblebMesh.rotation.x = rotationX;
@@ -587,8 +587,8 @@ const sketch = ({ context, canvas, width, height }) => {
 
     // Discard the loaded model
     gltf.scene.children.forEach((child) => {
-      child.pebblecGeometry?.dispose();
-      child.pebblecMaterial?.dispose();
+      if (child.pebblecGeometry) child.pebblecGeometry.dispose();
+      if (child.pebblecMaterial) child.pebblecMaterial.dispose();
     });
 
     pebblecMesh.rotation.x = rotationX;
@@ -619,8 +619,8 @@ const sketch = ({ context, canvas, width, height }) => {
 
     // Discard the loaded model
     gltf.scene.children.forEach((child) => {
-      child.soundwaveGeometry?.dispose();
-      child.soundwaveMaterial?.dispose();
+      if (child.soundwaveGeometry) child.soundwaveGeometry.dispose();
+      if (child.soundwaveMaterial) child.soundwaveMaterial.dispose();
     });
 
     soundwaveMesh.rotation.x = rotationX;
