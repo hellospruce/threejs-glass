@@ -445,7 +445,9 @@ const sketch = ({ context, canvas, width, height }) => {
   });
 
   // Load GLTF swirl model
+  console.log('Loading swirl asset...')
   new THREE.GLTFLoader().load(`${ASSET_SOURCE}assets/swirl.glb`, (gltf) => {
+    console.log('LOADED SWIRL ASSET', gltf)
     const swirlModel = gltf.scene.children.find((mesh) => mesh.name === "swirl");
     const swirlMeshName = swirlModel.name; // Store the mesh name in a variable
     console.log(swirlMeshName);
@@ -929,18 +931,22 @@ const sketch = ({ context, canvas, width, height }) => {
         el.style.backgroundColor = 'transparent'
 
         if (isEntering(el, isDown, enterOffset)) {
+          if (el.getAttribute('data-entered') !== 'true') console.log('ENTERING: ', modelKey, !!MODELS[modelKey])
           // el.style.backgroundColor = 'green';
           // el.style.opacity = '0.5';
           el.setAttribute('data-entered', 'true');
-          console.log('ENTERING: ', modelKey, !!MODELS[modelKey])
-          if (MODELS[modelKey]) MODELS[modelKey].visible = true;
+          if (MODELS[modelKey]) {
+            MODELS[modelKey].visible = true;
+            if (modelKey === 'swirl.glb') {
+              console.log('SWIRL IS VISIBLE', MODELS[modelKey].visible)
+            }
+          }
         } 
         else if (isExiting(el, isDown, exitOffset)) {
-
+          if (el.getAttribute('data-entered') !== 'false') console.log('EXITING: ', modelKey, !!MODELS[modelKey])
           // el.style.backgroundColor = 'red';
           // el.style.opacity = '0.5';
           el.setAttribute('data-entered', 'false');
-          console.log('EXITING: ', modelKey, !!MODELS[modelKey])
           if (MODELS[modelKey]) MODELS[modelKey].visible = false;
         }
       }
@@ -949,16 +955,17 @@ const sketch = ({ context, canvas, width, height }) => {
   document.addEventListener('scroll', renderSectionModelsOnScroll, false);
   window.addEventListener('resize', renderSectionModelsOnScroll, false);
 
-  // Initial render
+  // Initial render of models in viewport
   setTimeout(() => {
+    console.log('INITIAL RENDER.....')
     elementsWithAssetData.filter(({ element }) => isInViewport(element)).forEach(({ type, model: modelKey, element: el }) => {
       el.style.backgroundColor = 'transparent';
       el.setAttribute('data-entered', 'true');
       if (MODELS[modelKey]) MODELS[modelKey].visible = true;
     });
-  // TODO: will need a way to hook into a loaded event
-  }, 3000)
-  
+  // TODO: will need a way to hook into a models loaded event
+  }, 1500)
+    
   // Update
   // ------
 
