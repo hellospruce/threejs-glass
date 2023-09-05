@@ -916,7 +916,6 @@ const sketch = ({ context, canvas, width, height }) => {
     ...mapDataElements('texture'),
   ];
   const renderSectionModelsOnScroll = () => {
-
     const isDown = getScrollDirection() === 'down'
 
     const ENTER_PERCENT = 80
@@ -945,10 +944,10 @@ const sketch = ({ context, canvas, width, height }) => {
           if (MODELS[modelKey]) MODELS[modelKey].visible = false;
         }
       }
-      console.log(MODELS)
     });
   }
-  document.addEventListener('scroll', () => renderSectionModelsOnScroll(), false);
+  document.addEventListener('scroll', renderSectionModelsOnScroll, false);
+  window.addEventListener('resize', renderSectionModelsOnScroll, false);
 
   // Initial render
   setTimeout(() => {
