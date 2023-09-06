@@ -73,6 +73,49 @@ const TEXTURES = [
 // Instances of THREE classes are kept in this object by asset filename
 const MODELS = {};
 
+function rgbaToRgb(rgba) {
+  // Use a regex to match rgba values
+  const match = rgba.match(/^rgba\((\d{1,3}),\s*(\d{1,3}),\s*(\d{1,3}),\s*([\d.]+)\)$/i);
+  
+  if (!match) {
+      return rgba
+  }
+
+  const r = parseInt(match[1], 10);
+  const g = parseInt(match[2], 10);
+  const b = parseInt(match[3], 10);
+
+  return `rgb(${r},${g},${b})`;
+}
+
+function watchTargetBgColor(target, callback) {
+  // Select the node that will be observed for mutations
+  const targetNode = document.getElementById(target);
+
+  // Options for the observer (which mutations to observe)
+  
+  // The configuration
+  const config = {
+    attributes: true,       // We're observing attribute changes
+    attributeFilter: ['style']  // Specifically, changes to the "style" attribute
+  };
+
+  const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+      if (mutation.attributeName === 'style') {
+        const formatted = rgbaToRgb(mutation.target.style.backgroundColor)
+        callback(formatted)
+      }
+    });
+  });
+
+  // Start observing the target node for configured mutations
+  observer.observe(targetNode, config);
+
+  // initial
+  callback(rgbaToRgb(targetNode.style.backgroundColor))
+}
+
 const sketch = ({ context, canvas, width, height }) => {
   const gui = new GUI();
   const options = {
@@ -240,7 +283,6 @@ const sketch = ({ context, canvas, width, height }) => {
 
   const scene = new THREE.Scene();
   scene.background = new THREE.Color( 0x000000 );
-  scene.background.a = 0.5;
   const renderPass = new THREE.RenderPass(scene, camera);
   const bloomPass = new THREE.UnrealBloomPass(
     new THREE.Vector2(width, height),
@@ -996,6 +1038,11 @@ const sketch = ({ context, canvas, width, height }) => {
       camera.lookAt(scene.position);
     }
   };
+
+  watchTargetBgColor('canvas-wrapper', (color) => {
+    console.log('canvas-wrapper BG color', color);
+    scene.background = new THREE.Color( color );
+  });
 
   // Lifecycle
   return {
