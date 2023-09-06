@@ -28,7 +28,6 @@ const settings = {
 };
 
 let lastScrollPosition = 0;
-let initialized = false;
 
 let heartMesh;
 let swirlMesh;
@@ -451,9 +450,7 @@ const sketch = ({ context, canvas, width, height }) => {
   });
   
   // Define variables to store the translation values
-  let rotationX = 0;
-  let rotationY = 0;
-  let rotationZ = 0;
+  // TODO: @cael remove these once they are defined in .load function. 
   let translationX = 0;
   let translationY = -10;
 
@@ -493,10 +490,17 @@ const sketch = ({ context, canvas, width, height }) => {
     // Just copy the geometry from the loaded model
     const swirlGeometry = swirlModel.geometry.clone();
 
+    // Initial Geometery & MAYBE mesh positions
+    const rotationX = Math.PI / 0.4;
+    const rotationY = Math.PI / 0.5;
+    const positionX = 0;
+    const positionY = 10;
+    const positionZ = 5;
+
     // Adjust geometry to suit our scene
-    swirlGeometry.rotateX(Math.PI / 0.4);
-    swirlGeometry.rotateY(Math.PI / 0.5);
-    swirlGeometry.translate(0, 10, 5);
+    swirlGeometry.rotateX(rotationX);
+    swirlGeometry.rotateY(rotationY);
+    swirlGeometry.translate(positionX, positionY, positionZ);
 
     // Create a new mesh and place it in the scene
     swirlMesh = MODELS['swirl.glb'] = new THREE.Mesh(swirlGeometry, swirlMaterial);
@@ -509,9 +513,11 @@ const sketch = ({ context, canvas, width, height }) => {
       if (child.swirlMaterial) child.swirlMaterial.dispose();
     });
 
-    swirlMesh.rotation.x = rotationX;
-    swirlMesh.position.x = translationX;
-    swirlMesh.position.y = translationY;
+    // Initial mesh positions
+    swirlMesh.rotation.x = 0 // rotationX;
+    swirlMesh.position.x = 0 // positionX;
+    swirlMesh.position.y = 0 // positionY;
+    swirlMesh.position.z = 0 // positionZ;
     swirlMesh.visible = false;
   });
 
@@ -837,15 +843,13 @@ const sketch = ({ context, canvas, width, height }) => {
     };
 
     // Update translation based on mouse position
-    rotationX = Math.PI / 2 + mouse.y * 1;
-    rotationY = Math.PI / 2 + mouse.x * 1;
-    rotationZ = Math.PI / 2 + mouse.x * 2;
-    translationX = mouse.x * 6;
-    translationY = 0 + mouse.y * 2;
+    const rotationX = Math.PI / 2 + mouse.y * 1;
+    const rotationY = Math.PI / 2 + mouse.x * 1;
+    const rotationZ = Math.PI / 2 + mouse.x * 2;
+    const translationX = mouse.x * 6;
+    const translationY = 0 + mouse.y * 2;
 
-    swirlrotationX = Math.PI / 2 + mouse.y * 1;
-
-    console.log('updateModelPosition', swirlMesh)
+    // const swirlrotationX = Math.PI / 2 + mouse.y * 1;
 
     // Apply the new translation to the model
     if (heartMesh) {
@@ -857,12 +861,12 @@ const sketch = ({ context, canvas, width, height }) => {
     }
     
     if (swirlMesh) {
-      swirlMesh.rotation.y = swirlrotationX * 10;
-      //swirlMesh.rotation.x = rotationX;
-      //swirlMesh.rotation.y = rotationY;
-      //swirlMesh.rotation.z = rotationZ;
-      //swirlMesh.position.x = translationX / 2;
-      //swirlMesh.position.y = translationY / 2;
+      // swirlMesh.rotation.y = swirlrotationX * 10;
+      swirlMesh.rotation.x = rotationX;
+      swirlMesh.rotation.y = rotationY;
+      swirlMesh.rotation.z = rotationZ;
+      swirlMesh.position.x = translationX / 2;
+      swirlMesh.position.y = translationY / 2;
     }
 
     if (arrowMesh) {
