@@ -462,7 +462,6 @@ const sketch = ({ context, canvas, width, height }) => {
     
     const heartModel = gltf.scene.children.find((mesh) => mesh.name === "Heart");
     const heartMeshName = heartModel.name; // Store the mesh name in a variable
-    console.log(heartMeshName);
     // Just copy the geometry from the loaded model
     const heartGeometry = heartModel.geometry.clone();
 
@@ -488,12 +487,9 @@ const sketch = ({ context, canvas, width, height }) => {
   });
 
   // Load GLTF swirl model
-  console.log('Loading swirl asset...')
   new THREE.GLTFLoader().load(`${ASSET_SOURCE}assets/swirl.glb`, (gltf) => {
-    console.log('LOADED SWIRL ASSET', gltf)
     const swirlModel = gltf.scene.children.find((mesh) => mesh.name === "swirl");
     const swirlMeshName = swirlModel.name; // Store the mesh name in a variable
-    console.log(swirlMeshName);
     // Just copy the geometry from the loaded model
     const swirlGeometry = swirlModel.geometry.clone();
 
@@ -523,7 +519,6 @@ const sketch = ({ context, canvas, width, height }) => {
   new THREE.GLTFLoader().load(`${ASSET_SOURCE}assets/arrow.glb`, (gltf) => {
     const arrowModel = gltf.scene.children.find((mesh) => mesh.name === "arrow");
     const arrowMeshName = arrowModel.name; // Store the mesh name in a variable
-    console.log(arrowMeshName);
     // Just copy the geometry from the loaded model
     const arrowGeometry = arrowModel.geometry.clone();
 
@@ -584,7 +579,6 @@ const sketch = ({ context, canvas, width, height }) => {
   new THREE.GLTFLoader().load(`${ASSET_SOURCE}assets/pebble_b.glb`, (gltf) => {
     const pebblebModel = gltf.scene.children.find((mesh) => mesh.name === "pebble_b_remesh");
     const pebblebMeshName = pebblebModel.name; // Store the mesh name in a variable
-    console.log(pebblebMeshName);
     // Just copy the geometry from the loaded model
     const pebblebGeometry = pebblebModel.geometry.clone();
 
@@ -615,7 +609,6 @@ const sketch = ({ context, canvas, width, height }) => {
   new THREE.GLTFLoader().load(`${ASSET_SOURCE}assets/pebble_c.glb`, (gltf) => {
     const pebblecModel = gltf.scene.children.find((mesh) => mesh.name === "pebble_c_remesh001");
     const pebblecMeshName = pebblecModel.name; // Store the mesh name in a variable
-    console.log(pebblecMeshName);
     // Just copy the geometry from the loaded model
     const pebblecGeometry = pebblecModel.geometry.clone();
 
@@ -647,7 +640,6 @@ const sketch = ({ context, canvas, width, height }) => {
   new THREE.GLTFLoader().load(`${ASSET_SOURCE}assets/soundwave.glb`, (gltf) => {
     const soundwaveModel = gltf.scene.children.find((mesh) => mesh.name === "soundwave");
     const soundwaveMeshName = soundwaveModel.name; // Store the mesh name in a variable
-    console.log(soundwaveMeshName);
     // Just copy the geometry from the loaded model
     const soundwaveGeometry = soundwaveModel.geometry.clone();
 
@@ -684,7 +676,6 @@ const sketch = ({ context, canvas, width, height }) => {
   };
 
   var canvasWrap = document.getElementById('canvas-wrapper');
-  console.log(canvasWrap);
   Object.assign(canvas.style, canvasStyles);
   canvasWrap.appendChild(canvas);
 
@@ -854,6 +845,8 @@ const sketch = ({ context, canvas, width, height }) => {
 
     swirlrotationX = Math.PI / 2 + mouse.y * 1;
 
+    console.log('updateModelPosition', swirlMesh)
+
     // Apply the new translation to the model
     if (heartMesh) {
       heartMesh.rotation.x = rotationX;
@@ -981,19 +974,16 @@ const sketch = ({ context, canvas, width, height }) => {
         el.style.backgroundColor = 'transparent'
 
         if (isEntering(el, isDown, enterOffset)) {
-          if (el.getAttribute('data-entered') !== 'true') console.log('ENTERING: ', modelKey, !!MODELS[modelKey])
+          // if (el.getAttribute('data-entered') !== 'true') console.log('ENTERING: ', modelKey, !!MODELS[modelKey])
           // el.style.backgroundColor = 'green';
           // el.style.opacity = '0.5';
           el.setAttribute('data-entered', 'true');
           if (MODELS[modelKey]) {
             MODELS[modelKey].visible = true;
-            if (modelKey === 'swirl.glb') {
-              console.log('SWIRL IS VISIBLE', MODELS[modelKey].visible)
-            }
           }
         } 
         else if (isExiting(el, isDown, exitOffset)) {
-          if (el.getAttribute('data-entered') !== 'false') console.log('EXITING: ', modelKey, !!MODELS[modelKey])
+          // if (el.getAttribute('data-entered') !== 'false') console.log('EXITING: ', modelKey, !!MODELS[modelKey])
           // el.style.backgroundColor = 'red';
           // el.style.opacity = '0.5';
           el.setAttribute('data-entered', 'false');
@@ -1040,7 +1030,6 @@ const sketch = ({ context, canvas, width, height }) => {
   };
 
   watchTargetBgColor('canvas-wrapper', (color) => {
-    console.log('canvas-wrapper BG color', color);
     scene.background = new THREE.Color( color );
   });
 
