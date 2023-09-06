@@ -74,7 +74,6 @@ const TEXTURES = [
 const MODELS = {};
 
 const sketch = ({ context, canvas, width, height }) => {
-
   const gui = new GUI();
   const options = {
     enableSwoopingCamera: false,
@@ -226,6 +225,7 @@ const sketch = ({ context, canvas, width, height }) => {
   const renderer = new THREE.WebGLRenderer({
     context,
     antialias: false,
+    alpha: true,
   });
   renderer.setClearColor(0xffffff, 1);
 
@@ -239,7 +239,8 @@ const sketch = ({ context, canvas, width, height }) => {
   controls.enablePan = false;
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color( 0xffffff );
+  scene.background = new THREE.Color( 0x000000 );
+  scene.background.a = 0.5;
   const renderPass = new THREE.RenderPass(scene, camera);
   const bloomPass = new THREE.UnrealBloomPass(
     new THREE.Vector2(width, height),
@@ -282,7 +283,7 @@ const sketch = ({ context, canvas, width, height }) => {
   normalMapTexture.repeat.set(options.normalRepeat, options.normalRepeat);
 
   const heartMaterial = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
+    color: 0xf9f0e3,
     metalness: options.metalness,
     roughness: options.roughness,
     transmission: options.transmission,
@@ -300,7 +301,7 @@ const sketch = ({ context, canvas, width, height }) => {
   });
 
   const swirlMaterial = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
+    color: 0xf9f0e3,
     metalness: swirlOptions.metalness,
     roughness: swirlOptions.roughness,
     transmission: swirlOptions.transmission,
@@ -318,7 +319,7 @@ const sketch = ({ context, canvas, width, height }) => {
   });
 
   const arrowMaterial = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
+    color: 0xf9f0e3,
     metalness: arrowOptions.metalness,
     roughness: arrowOptions.roughness,
     transmission: arrowOptions.transmission,
@@ -336,7 +337,7 @@ const sketch = ({ context, canvas, width, height }) => {
   });
 
   const pebbleaMaterial = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
+    color: 0xf9f0e3,
     metalness: pebbleaOptions.metalness,
     roughness: pebbleaOptions.roughness,
     transmission: pebbleaOptions.transmission,
@@ -354,7 +355,7 @@ const sketch = ({ context, canvas, width, height }) => {
   });
 
   const pebblebMaterial = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
+    color: 0xf9f0e3,
     metalness: pebblebOptions.metalness,
     roughness: pebblebOptions.roughness,
     transmission: pebblebOptions.transmission,
@@ -372,7 +373,7 @@ const sketch = ({ context, canvas, width, height }) => {
   });
 
   const pebblecMaterial = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
+    color: 0xf9f0e3,
     metalness: pebblecOptions.metalness,
     roughness: pebblecOptions.roughness,
     transmission: pebblecOptions.transmission,
@@ -390,7 +391,7 @@ const sketch = ({ context, canvas, width, height }) => {
   });
 
   const soundwaveMaterial = new THREE.MeshPhysicalMaterial({
-    color: 0xffffff,
+    color: 0xf9f0e3,
     metalness: soundwaveOptions.metalness,
     roughness: soundwaveOptions.roughness,
     transmission: soundwaveOptions.transmission,
@@ -521,7 +522,7 @@ const sketch = ({ context, canvas, width, height }) => {
 
     // Create a new mesh and place it in the scene
     pebbleaMesh = MODELS['pebble_a.glb'] = new THREE.Mesh(pebbleaGeometry, pebbleaMaterial);
-    pebbleaMesh.scale.set(0.02, 0.02, 0.02);
+    pebbleaMesh.scale.set(0.01, 0.01, 0.01);
     scene.add(pebbleaMesh);
     
 
@@ -546,13 +547,13 @@ const sketch = ({ context, canvas, width, height }) => {
     const pebblebGeometry = pebblebModel.geometry.clone();
 
     // Adjust geometry to suit our scene
-    pebblebGeometry.rotateX(Math.PI / 0.4);
-    pebblebGeometry.rotateY(Math.PI / 0.5);
-    pebblebGeometry.translate(0, 10, 5);
+    pebblebGeometry.rotateX(Math.PI / 0.75);
+    pebblebGeometry.rotateY(Math.PI / 0.6);
+    pebblebGeometry.translate(150, 0, 50);
 
     // Create a new mesh and place it in the scene
     pebblebMesh = MODELS['pebble_b.glb'] = new THREE.Mesh(pebblebGeometry, pebblebMaterial);
-    pebblebMesh.scale.set(0.02, 0.02, 0.02);
+    pebblebMesh.scale.set(0.01, 0.01, 0.01);
     scene.add(pebblebMesh);
     
 
@@ -577,13 +578,13 @@ const sketch = ({ context, canvas, width, height }) => {
     const pebblecGeometry = pebblecModel.geometry.clone();
 
     // Adjust geometry to suit our scene
-    pebblecGeometry.rotateX(Math.PI / 0.4);
-    pebblecGeometry.rotateY(Math.PI / 0.5);
-    pebblecGeometry.translate(0, 10, 5);
+    pebblecGeometry.rotateX(Math.PI / 2);
+    //pebblecGeometry.rotateY(Math.PI / 2);
+    pebblecGeometry.translate(-150, 10, 5);
 
     // Create a new mesh and place it in the scene
     pebblecMesh = MODELS['pebble_c.glb'] = new THREE.Mesh(pebblecGeometry, pebblecMaterial);
-    pebblecMesh.scale.set(0.02, 0.02, 0.02);
+    pebblecMesh.scale.set(0.01, 0.01, 0.01);
     scene.add(pebblecMesh);
     
 
@@ -630,8 +631,7 @@ const sketch = ({ context, canvas, width, height }) => {
     soundwaveMesh.position.y = translationY;
     soundwaveMesh.visible = false;
   });
-  // Create six sections and append them to the body
-
+ 
   // Add the canvas with fixed position
   const canvasStyles = {
     position: 'fixed',
@@ -641,8 +641,10 @@ const sketch = ({ context, canvas, width, height }) => {
     zIndex: -1, // Ensure the canvas stays above other elements
   };
 
+  var canvasWrap = document.getElementById('canvas-wrapper');
+  console.log(canvasWrap);
   Object.assign(canvas.style, canvasStyles);
-  document.body.appendChild(canvas);
+  canvasWrap.appendChild(canvas);
 
   // Set body display to block
   document.body.style.display = 'block';
@@ -792,6 +794,7 @@ const sketch = ({ context, canvas, width, height }) => {
     
   });
 
+  
   // Function to handle mouse movement and update the model's position
   function updateModelPosition(event) {
     // Get the mouse position relative to the viewport
@@ -820,6 +823,11 @@ const sketch = ({ context, canvas, width, height }) => {
     
     if (swirlMesh) {
       swirlMesh.rotation.y = swirlrotationX * 10;
+      //swirlMesh.rotation.x = rotationX;
+      //swirlMesh.rotation.y = rotationY;
+      //swirlMesh.rotation.z = rotationZ;
+      //swirlMesh.position.x = translationX / 2;
+      //swirlMesh.position.y = translationY / 2;
     }
 
     if (arrowMesh) {
@@ -839,19 +847,19 @@ const sketch = ({ context, canvas, width, height }) => {
     }
 
     if (pebblebMesh) {
-      pebblebMesh.rotation.x = rotationX;
-      pebblebMesh.rotation.y = rotationY;
-      pebblebMesh.rotation.z = rotationZ;
-      pebblebMesh.position.x = translationX / 2;
-      pebblebMesh.position.y = translationY / 2;
+      // pebblebMesh.rotation.x = rotationX / 2;
+       pebblebMesh.rotation.y = rotationY / 4;
+      //pebblebMesh.rotation.z = rotationZ;
+      pebblebMesh.position.x = translationX / 8;
+      pebblebMesh.position.y = translationY / 8;
     }
 
     if (pebblecMesh) {
-      pebblecMesh.rotation.x = rotationX;
-      pebblecMesh.rotation.y = rotationY;
-      pebblecMesh.rotation.z = rotationZ;
-      pebblecMesh.position.x = translationX / 2;
-      pebblecMesh.position.y = translationY / 2;
+      //pebblecMesh.rotation.x = rotationX;
+      pebblecMesh.rotation.y = rotationY / 4;
+      //pebblecMesh.rotation.z = rotationZ;
+      pebblecMesh.position.x = translationX / 8;
+      pebblecMesh.position.y = translationY / 8;
     }
 
     if (soundwaveMesh) {
