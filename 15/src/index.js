@@ -451,6 +451,7 @@ const sketch = ({ context, canvas, width, height }) => {
   
   // Define variables to store the translation values
   // TODO: @cael remove these once they are defined in .load function. 
+  let rotationX = 0;
   let translationX = 0;
   let translationY = -10;
 
@@ -476,10 +477,6 @@ const sketch = ({ context, canvas, width, height }) => {
     // Discard the loaded model
     heartGeometry.dispose();
     heartMaterial.dispose();
-
-    heartMesh.rotation.x = rotationX;
-    heartMesh.position.x = translationX;
-    heartMesh.position.y = translationY;
     heartMesh.visible = false;
   });
 
@@ -490,17 +487,10 @@ const sketch = ({ context, canvas, width, height }) => {
     // Just copy the geometry from the loaded model
     const swirlGeometry = swirlModel.geometry.clone();
 
-    // Initial Geometery & MAYBE mesh positions
-    const rotationX = Math.PI / 0.4;
-    const rotationY = Math.PI / 0.5;
-    const positionX = 0;
-    const positionY = 10;
-    const positionZ = 5;
-
     // Adjust geometry to suit our scene
-    swirlGeometry.rotateX(rotationX);
-    swirlGeometry.rotateY(rotationY);
-    swirlGeometry.translate(positionX, positionY, positionZ);
+    swirlGeometry.rotateX(Math.PI / 0.4);
+    swirlGeometry.rotateY(Math.PI / 0.5);
+    swirlGeometry.translate(-2, 10, 5);
 
     // Create a new mesh and place it in the scene
     swirlMesh = MODELS['swirl.glb'] = new THREE.Mesh(swirlGeometry, swirlMaterial);
@@ -513,11 +503,6 @@ const sketch = ({ context, canvas, width, height }) => {
       if (child.swirlMaterial) child.swirlMaterial.dispose();
     });
 
-    // Initial mesh positions
-    swirlMesh.rotation.x = 0 // rotationX;
-    swirlMesh.position.x = 0 // positionX;
-    swirlMesh.position.y = 0 // positionY;
-    swirlMesh.position.z = 0 // positionZ;
     swirlMesh.visible = false;
   });
 
@@ -853,20 +838,30 @@ const sketch = ({ context, canvas, width, height }) => {
 
     // Apply the new translation to the model
     if (heartMesh) {
-      heartMesh.rotation.x = rotationX;
-      // heartMesh.rotation.y = rotationY;
-      heartMesh.rotation.z = rotationZ;
-      heartMesh.position.x = translationX / 2;
-      heartMesh.position.y = translationY / 2;
+      const hrotationX = Math.PI / 2 + mouse.y * 1;
+      const hrotationY = Math.PI / 2 + mouse.x * 1;
+      const hrotationZ = Math.PI / 2 + mouse.x * 2;
+      const htranslationX = mouse.x * 6;
+      const htranslationY = 0 + mouse.y * 2;
+      
+      heartMesh.rotation.x = hrotationX;
+      // heartMesh.rotation.y = hrotationY;
+      heartMesh.rotation.z = hrotationZ;
+      heartMesh.position.x = htranslationX / 2;
+      heartMesh.position.y = htranslationY / 2;
     }
     
     if (swirlMesh) {
-      // swirlMesh.rotation.y = swirlrotationX * 10;
-      swirlMesh.rotation.x = rotationX;
-      swirlMesh.rotation.y = rotationY;
-      swirlMesh.rotation.z = rotationZ;
-      swirlMesh.position.x = translationX / 2;
-      swirlMesh.position.y = translationY / 2;
+      const srotationX = Math.PI / 2 + mouse.y * 1;
+      const srotationY = Math.PI / 2 + mouse.x * 1;
+      const srotationZ = Math.PI / 2 + mouse.x * 2;
+      const stranslationX = mouse.x * 6;
+      const stranslationY = 0 + mouse.y * 2;
+      swirlMesh.rotation.y = srotationX * 2;
+      //swirlMesh.rotation.y = srotationY;
+      //swirlMesh.rotation.z = srotationZ;
+      //swirlMesh.position.x = stranslationX / 2;
+      //swirlMesh.position.y = stranslationY / 2;
     }
 
     if (arrowMesh) {
