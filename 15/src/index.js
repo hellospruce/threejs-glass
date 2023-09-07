@@ -530,9 +530,6 @@ const sketch = ({ context, canvas, width, height }) => {
       if (child.arrowMaterial) child.arrowMaterial.dispose();
     });
 
-    arrowMesh.rotation.x = rotationX;
-    arrowMesh.position.x = translationX;
-    arrowMesh.position.y = translationY;
     arrowMesh.visible = false;
   });
 
@@ -560,9 +557,7 @@ const sketch = ({ context, canvas, width, height }) => {
       if (child.pebbleaMaterial) child.pebbleaMaterial.dispose();
     });
 
-    pebbleaMesh.rotation.x = rotationX;
-    pebbleaMesh.position.x = translationX;
-    pebbleaMesh.position.y = translationY;
+   
     pebbleaMesh.visible = false;
   });
 
@@ -590,9 +585,7 @@ const sketch = ({ context, canvas, width, height }) => {
       if (child.pebblebMaterial) child.pebblebMaterial.dispose();
     });
 
-    pebblebMesh.rotation.x = rotationX;
-    pebblebMesh.position.x = translationX;
-    pebblebMesh.position.y = translationY;
+
     pebblebMesh.visible = false;
   });
 
@@ -651,9 +644,7 @@ const sketch = ({ context, canvas, width, height }) => {
       if (child.soundwaveMaterial) child.soundwaveMaterial.dispose();
     });
 
-    soundwaveMesh.rotation.x = rotationX;
-    soundwaveMesh.position.x = translationX;
-    soundwaveMesh.position.y = translationY;
+   
     soundwaveMesh.visible = false;
   });
  
@@ -881,11 +872,12 @@ const sketch = ({ context, canvas, width, height }) => {
     }
 
     if (pebblebMesh) {
-      // pebblebMesh.rotation.x = rotationX / 2;
-       pebblebMesh.rotation.y = rotationY / 4;
-      //pebblebMesh.rotation.z = rotationZ;
-      pebblebMesh.position.x = translationX / 8;
-      pebblebMesh.position.y = translationY / 8;
+      const pbrotationY = Math.PI / 2 + mouse.x * 1;
+      const pbtranslationX = mouse.x * 6;
+      const pbtranslationY = 0 + mouse.y * 2;
+      pebblebMesh.rotation.y = pbrotationY / 4;
+      pebblebMesh.position.x = pbtranslationX / 8;
+      pebblebMesh.position.y = pbtranslationY / 8;
     }
 
     if (pebblecMesh) {
