@@ -40,6 +40,7 @@ let brainMesh;
 
 const TEXTURES = [
   'hero_white.png',
+  'hero_white.jpg',
   'hero_black.png',
   '60_minute_thesis_white.png',
   '60_minute_thesis_black.png',
@@ -69,6 +70,7 @@ const TEXTURES = [
   'speakers.png',
   'summary.png',
 ];
+
 // Instances of THREE classes are kept in this object by asset filename
 const MODELS = {};
 
@@ -601,9 +603,10 @@ const sketch = ({ context, canvas, width, height }) => {
     const pebblebGeometry = pebblebModel.geometry.clone();
 
     // Adjust geometry to suit our scene
-    pebblebGeometry.rotateX(Math.PI / 0.75);
-    pebblebGeometry.rotateY(Math.PI / 0.6);
-    pebblebGeometry.translate(150, 0, 50);
+    pebblebGeometry.rotateX(Math.PI / 2);
+    pebblebGeometry.rotateY(Math.PI / 4);
+    pebblebGeometry.rotateZ(Math.PI / 2);
+    pebblebGeometry.translate(150, 50, 50);
 
     // Create a new mesh and place it in the scene
     pebblebMesh = MODELS['pebble_b.glb'] = new THREE.Mesh(pebblebGeometry, pebblebMaterial);
@@ -628,7 +631,6 @@ const sketch = ({ context, canvas, width, height }) => {
 
     // Adjust geometry to suit our scene
     pebblecGeometry.rotateX(Math.PI / 2);
-    //pebblecGeometry.rotateY(Math.PI / 2);
     pebblecGeometry.translate(-150, 10, 5);
 
     // Create a new mesh and place it in the scene
@@ -715,160 +717,160 @@ const sketch = ({ context, canvas, width, height }) => {
   // GUI
   // ---
 
-  // gui.add(options, "enableSwoopingCamera").onChange((val) => {
-  //   controls.enabled = !val;
-  //   controls.reset();
-  // });
+  gui.add(options, "enableSwoopingCamera").onChange((val) => {
+    controls.enabled = !val;
+    controls.reset();
+  });
 
-  // gui.add(options, "enableRotation").onChange(() => {
-  //   if (heartMesh) heartMesh.rotation.set(0, 0, 0);
-  //   if (swirlMesh) swirlMesh.rotation.set(0, 0, 0);
-  //   if (arrowMesh) arrowMesh.rotation.set(0, 0, 0);
-  //   if (pebbleaMesh) pebbleaMesh.rotation.set(0, 0, 0);
-  //   if (pebblebMesh) pebblebMesh.rotation.set(0, 0, 0);
-  //   if (pebblecMesh) pebblecMesh.rotation.set(0, 0, 0);
-  //   if (soundwaveMesh) soundwaveMesh.rotation.set(0, 0, 0);
-  //   if (brainMesh) brainMesh.rotation.set(0, 0, 0);
-  // });
+  gui.add(options, "enableRotation").onChange(() => {
+    if (heartMesh) heartMesh.rotation.set(0, 0, 0);
+    if (swirlMesh) swirlMesh.rotation.set(0, 0, 0);
+    if (arrowMesh) arrowMesh.rotation.set(0, 0, 0);
+    if (pebbleaMesh) pebbleaMesh.rotation.set(0, 0, 0);
+    if (pebblebMesh) pebblebMesh.rotation.set(0, 0, 0);
+    if (pebblecMesh) pebblecMesh.rotation.set(0, 0, 0);
+    if (soundwaveMesh) soundwaveMesh.rotation.set(0, 0, 0);
+    if (brainMesh) brainMesh.rotation.set(0, 0, 0);
+  });
 
-  // gui.addColor(options, "color").onChange((val) => {
-  //   heartMaterial.color.set(val);
-  //   swirlMaterial.color.set(val);
-  //   arrowMaterial.color.set(val);
-  //   pebbleaMaterial.color.set(val);
-  //   pebblebMaterial.color.set(val);
-  //   pebblecMaterial.color.set(val);
-  //   soundwaveMaterial.color.set(val);
-  //   brainMaterial.color.set(val);
-  // });
+  gui.addColor(options, "color").onChange((val) => {
+    heartMaterial.color.set(val);
+    swirlMaterial.color.set(val);
+    arrowMaterial.color.set(val);
+    pebbleaMaterial.color.set(val);
+    pebblebMaterial.color.set(val);
+    pebblecMaterial.color.set(val);
+    soundwaveMaterial.color.set(val);
+    brainMaterial.color.set(val);
+  });
 
-  // gui.add(options, "roughness", 0, 1, 0.01).onChange((val) => {
-  //   heartMaterial.roughness = val;
-  //   swirlMaterial.roughness = val;
-  //   arrowMaterial.roughness = val;
-  //   pebbleaMaterial.roughness = val;
-  //   pebblebMaterial.roughness = val;
-  //   pebblecMaterial.roughness = val;
-  //   soundwaveMaterial.roughness = val;
-  //   brainMaterial.roughness = val;
-  // });
+  gui.add(options, "roughness", 0, 1, 0.01).onChange((val) => {
+    heartMaterial.roughness = val;
+    swirlMaterial.roughness = val;
+    arrowMaterial.roughness = val;
+    pebbleaMaterial.roughness = val;
+    pebblebMaterial.roughness = val;
+    pebblecMaterial.roughness = val;
+    soundwaveMaterial.roughness = val;
+    brainMaterial.roughness = val;
+  });
 
-  // gui.add(options, "metalness", 0, 1, 0.01).onChange((val) => {
-  //   heartMaterial.metalness = val;
-  //   swirlMaterial.metalness = val;
-  //   arrowMaterial.metalness = val;
-  //   pebbleaMaterial.metalness = val;
-  //   pebblebMaterial.metalness = val;
-  //   pebblecMaterial.metalness = val;
-  //   soundwaveMaterial.metalness = val;
-  //   brainMaterial.metalness = val;
+  gui.add(options, "metalness", 0, 1, 0.01).onChange((val) => {
+    heartMaterial.metalness = val;
+    swirlMaterial.metalness = val;
+    arrowMaterial.metalness = val;
+    pebbleaMaterial.metalness = val;
+    pebblebMaterial.metalness = val;
+    pebblecMaterial.metalness = val;
+    soundwaveMaterial.metalness = val;
+    brainMaterial.metalness = val;
    
-  // });
+  });
 
-  // gui.add(options, "transmission", 0, 1, 0.01).onChange((val) => {
-  //   heartMaterial.transmission = val;
-  //   swirlMaterial.transmission = val;
-  //   arrowMaterial.transmission = val;
-  //   pebbleaMaterial.transmission = val;
-  //   pebblebMaterial.transmission = val;
-  //   pebblecMaterial.transmission = val;
-  //   soundwaveMaterial.transmission = val;
-  //   brainMaterial.transmission = val;
-  // });
+  gui.add(options, "transmission", 0, 1, 0.01).onChange((val) => {
+    heartMaterial.transmission = val;
+    swirlMaterial.transmission = val;
+    arrowMaterial.transmission = val;
+    pebbleaMaterial.transmission = val;
+    pebblebMaterial.transmission = val;
+    pebblecMaterial.transmission = val;
+    soundwaveMaterial.transmission = val;
+    brainMaterial.transmission = val;
+  });
 
-  // gui.add(options, "ior", 1, 2.33, 0.01).onChange((val) => {
-  //   heartMaterial.ior = val;
-  //   swirlMaterial.ior = val;
-  //   arrowMaterial.ior = val;
-  //   pebbleaMaterial.ior = val;
-  //   pebblebMaterial.ior = val;
-  //   pebblecMaterial.ior = val;
-  //   soundwaveMaterial.ior = val;
-  //   brainMaterial.ior = val;
-  // });
+  gui.add(options, "ior", 1, 2.33, 0.01).onChange((val) => {
+    heartMaterial.ior = val;
+    swirlMaterial.ior = val;
+    arrowMaterial.ior = val;
+    pebbleaMaterial.ior = val;
+    pebblebMaterial.ior = val;
+    pebblecMaterial.ior = val;
+    soundwaveMaterial.ior = val;
+    brainMaterial.ior = val;
+  });
 
-  // gui.add(options, "reflectivity", 0, 1, 0.01).onChange((val) => {
-  //   heartMaterial.reflectivity = val;
-  //   swirlMaterial.reflectivity = val;
-  //   arrowMaterial.reflectivity = val;
-  //   pebbleaMaterial.reflectivity = val;
-  //   pebblebMaterial.reflectivity = val;
-  //   pebblecMaterial.reflectivity = val;
-  //   soundwaveMaterial.reflectivity = val;
-  //   brainMaterial.reflectivity = val;
-  // });
+  gui.add(options, "reflectivity", 0, 1, 0.01).onChange((val) => {
+    heartMaterial.reflectivity = val;
+    swirlMaterial.reflectivity = val;
+    arrowMaterial.reflectivity = val;
+    pebbleaMaterial.reflectivity = val;
+    pebblebMaterial.reflectivity = val;
+    pebblecMaterial.reflectivity = val;
+    soundwaveMaterial.reflectivity = val;
+    brainMaterial.reflectivity = val;
+  });
 
-  // gui.add(options, "thickness", 0, 5, 0.1).onChange((val) => {
-  //   heartMaterial.thickness = val;
-  //   swirlMaterial.thickness = val;
-  //   arrowMaterial.thickness = val;
-  //   pebbleaMaterial.thickness = val;
-  //   pebblebMaterial.thickness = val;
-  //   pebblecMaterial.thickness = val;
-  //   soundwaveMaterial.thickness = val;
-  //   brainMaterial.thickness = val;
-  // });
+  gui.add(options, "thickness", 0, 5, 0.1).onChange((val) => {
+    heartMaterial.thickness = val;
+    swirlMaterial.thickness = val;
+    arrowMaterial.thickness = val;
+    pebbleaMaterial.thickness = val;
+    pebblebMaterial.thickness = val;
+    pebblecMaterial.thickness = val;
+    soundwaveMaterial.thickness = val;
+    brainMaterial.thickness = val;
+  });
 
-  // gui.add(options, "envMapIntensity", 0, 3, 0.1).onChange((val) => {
-  //   heartMaterial.envMapIntensity = val;
-  //   swirlMaterial.envMapIntensity = val;
-  //   arrowMaterial.envMapIntensity = val;
-  //   pebbleaMaterial.envMapIntensity = val;
-  //   pebblebMaterial.envMapIntensity = val;
-  //   pebblecMaterial.envMapIntensity = val;
-  //   soundwaveMaterial.envMapIntensity = val;
-  //   brainMaterial.envMapIntensity = val;
-  // });
+  gui.add(options, "envMapIntensity", 0, 3, 0.1).onChange((val) => {
+    heartMaterial.envMapIntensity = val;
+    swirlMaterial.envMapIntensity = val;
+    arrowMaterial.envMapIntensity = val;
+    pebbleaMaterial.envMapIntensity = val;
+    pebblebMaterial.envMapIntensity = val;
+    pebblecMaterial.envMapIntensity = val;
+    soundwaveMaterial.envMapIntensity = val;
+    brainMaterial.envMapIntensity = val;
+  });
 
-  // gui.add(options, "clearcoat", 0, 1, 0.01).onChange((val) => {
-  //   heartMaterial.clearcoat = val;
-  //   swirlMaterial.clearcoat = val;
-  //   arrowMaterial.clearcoat = val;
-  //   pebbleaMaterial.clearcoat = val;
-  //   pebblebMaterial.clearcoat = val;
-  //   pebblecMaterial.clearcoat = val;
-  //   soundwaveMaterial.clearcoat = val;
-  //   brainMaterial.clearcoat = val;
-  // });
+  gui.add(options, "clearcoat", 0, 1, 0.01).onChange((val) => {
+    heartMaterial.clearcoat = val;
+    swirlMaterial.clearcoat = val;
+    arrowMaterial.clearcoat = val;
+    pebbleaMaterial.clearcoat = val;
+    pebblebMaterial.clearcoat = val;
+    pebblecMaterial.clearcoat = val;
+    soundwaveMaterial.clearcoat = val;
+    brainMaterial.clearcoat = val;
+  });
 
-  // gui.add(options, "clearcoatRoughness", 0, 1, 0.01).onChange((val) => {
-  //   heartMaterial.clearcoatRoughness = val;
-  //   swirlMaterial.clearcoatRoughness = val;
-  //   arrowMaterial.clearcoatRoughness = val;
-  //   pebbleaMaterial.clearcoatRoughness = val;
-  //   pebblebMaterial.clearcoatRoughness = val;
-  //   pebblecMaterial.clearcoatRoughness = val;
-  //   soundwaveMaterial.clearcoatRoughness = val;
-  //   brainMaterial.clearcoatRoughness = val;
-  // });
+  gui.add(options, "clearcoatRoughness", 0, 1, 0.01).onChange((val) => {
+    heartMaterial.clearcoatRoughness = val;
+    swirlMaterial.clearcoatRoughness = val;
+    arrowMaterial.clearcoatRoughness = val;
+    pebbleaMaterial.clearcoatRoughness = val;
+    pebblebMaterial.clearcoatRoughness = val;
+    pebblecMaterial.clearcoatRoughness = val;
+    soundwaveMaterial.clearcoatRoughness = val;
+    brainMaterial.clearcoatRoughness = val;
+  });
 
-  // gui.add(options, "normalScale", 0, 5, 0.01).onChange((val) => {
-  //   heartMaterial.normalScale.set(val, val);
-  //   swirlMaterial.normalScale.set(val, val);
-  //   arrowMaterial.normalScale.set(val, val);
-  //   pebbleaMaterial.normalScale.set(val, val);
-  //   pebblebMaterial.normalScale.set(val, val);
-  //   pebblecMaterial.normalScale.set(val, val);
-  //   soundwaveMaterial.normalScale.set(val, val);
-  //   brainMaterial.normalScale.set(val, val);
-  // });
+  gui.add(options, "normalScale", 0, 5, 0.01).onChange((val) => {
+    heartMaterial.normalScale.set(val, val);
+    swirlMaterial.normalScale.set(val, val);
+    arrowMaterial.normalScale.set(val, val);
+    pebbleaMaterial.normalScale.set(val, val);
+    pebblebMaterial.normalScale.set(val, val);
+    pebblecMaterial.normalScale.set(val, val);
+    soundwaveMaterial.normalScale.set(val, val);
+    brainMaterial.normalScale.set(val, val);
+  });
 
-  // gui.add(options, "clearcoatNormalScale", 0, 5, 0.01).onChange((val) => {
-  //   heartMaterial.clearcoatNormalScale.set(val, val);
-  //   swirlMaterial.clearcoatNormalScale.set(val, val);
-  //   arrowMaterial.clearcoatNormalScale.set(val, val);
-  //   pebbleaMaterial.clearcoatNormalScale.set(val, val);
-  //   pebblebMaterial.clearcoatNormalScale.set(val, val);
-  //   pebblecMaterial.clearcoatNormalScale.set(val, val);
-  //   soundwaveMaterial.clearcoatNormalScale.set(val, val);
-  //   brainMaterial.clearcoatNormalScale.set(val, val);
-  // });
+  gui.add(options, "clearcoatNormalScale", 0, 5, 0.01).onChange((val) => {
+    heartMaterial.clearcoatNormalScale.set(val, val);
+    swirlMaterial.clearcoatNormalScale.set(val, val);
+    arrowMaterial.clearcoatNormalScale.set(val, val);
+    pebbleaMaterial.clearcoatNormalScale.set(val, val);
+    pebblebMaterial.clearcoatNormalScale.set(val, val);
+    pebblecMaterial.clearcoatNormalScale.set(val, val);
+    soundwaveMaterial.clearcoatNormalScale.set(val, val);
+    brainMaterial.clearcoatNormalScale.set(val, val);
+  });
 
-  // gui.add(options, "normalRepeat", 1, 4, 1).onChange((val) => {
-  //   normalMapTexture.repeat.set(val, val);
-  //   swirlMaterial.repeat.set(val, val);
+  gui.add(options, "normalRepeat", 1, 4, 1).onChange((val) => {
+    normalMapTexture.repeat.set(val, val);
+    swirlMaterial.repeat.set(val, val);
     
-  // });
+  });
 
   
   // Function to handle mouse movement and update the model's position
@@ -939,13 +941,13 @@ const sketch = ({ context, canvas, width, height }) => {
     }
 
     if (pebblebMesh) {
-      // const pbrotationX = Math.PI / 2 + mouse.y * 1;
+      const pbrotationX = Math.PI / 2 + mouse.y * 1;
       const pbrotationY = Math.PI / 2 + mouse.x * 1;
       // const pbrotationZ = Math.PI / 2 + mouse.x * 2;
       const pbtranslationX = mouse.x * 6;
       const pbtranslationY = 0 + mouse.y * 2;
 
-      pebblebMesh.rotation.y = pbrotationY / 4;
+      //pebblebMesh.rotation.x = pbrotationX / 4;
       pebblebMesh.position.x = pbtranslationX / 8;
       pebblebMesh.position.y = pbtranslationY / 8;
     }
