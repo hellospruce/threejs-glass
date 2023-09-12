@@ -944,8 +944,8 @@ const sketch = ({ context, canvas, width, height }) => {
       const pbrotationX = Math.PI / 2 + mouse.y * 1;
       const pbrotationY = Math.PI / 2 + mouse.x * 1;
       // const pbrotationZ = Math.PI / 2 + mouse.x * 2;
-      const pbtranslationX = mouse.x * 6;
-      const pbtranslationY = 0 + mouse.y * 2;
+      const pbtranslationX = mouse.x * -6;
+      const pbtranslationY = 0 + mouse.y * -2;
 
       //pebblebMesh.rotation.x = pbrotationX / 4;
       pebblebMesh.position.x = pbtranslationX / 8;
