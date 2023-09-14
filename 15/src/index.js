@@ -1,6 +1,4 @@
-const IS_IOS =
-  /^(iPad|iPhone|iPod)/.test(window.navigator.platform) ||
-  (/^Mac/.test(window.navigator.platform) && window.navigator.maxTouchPoints > 1);
+const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 if (IS_IOS) {
   console.log("iOS");
   window.createImageBitmap = undefined;
