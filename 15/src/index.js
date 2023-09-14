@@ -984,7 +984,7 @@ const sketch = ({ context, canvas, width, height }) => {
     event.preventDefault();
     // Call the same update function for touch events
     updateModelPosition(event.touches[0]);
-  }, { passive: false });
+  });
 
   function getScrollDirection() {
     var st = window.pageY || document.documentElement.scrollTop;
