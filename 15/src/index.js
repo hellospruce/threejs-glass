@@ -1,3 +1,11 @@
+const IS_IOS =
+  /^(iPad|iPhone|iPod)/.test(window.navigator.platform) ||
+  (/^Mac/.test(window.navigator.platform) && window.navigator.maxTouchPoints > 1);
+if (IS_IOS) {
+  console.log("iOS");
+  window.createImageBitmap = undefined;
+}
+
 const canvasSketch = require("canvas-sketch");
 
 const ASSET_SOURCE = window.location.protocol.includes('https') ? `https://spruce-cdn.s3.ap-southeast-2.amazonaws.com/sohn-threejs-glass/` : './'
