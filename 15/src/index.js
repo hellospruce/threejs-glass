@@ -658,7 +658,7 @@ const sketch = ({ context, canvas, width, height }) => {
     // Adjust geometry to suit our scene
     soundwaveGeometry.rotateX(Math.PI / 0.4);
     soundwaveGeometry.rotateY(Math.PI / 0.55);
-    soundwaveGeometry.translate(130, -20, 5);
+    soundwaveGeometry.translate(100, -20, 5);
 
     // Create a new mesh and place it in the scene
     soundwaveMesh = MODELS['soundwave.glb'] = new THREE.Mesh(soundwaveGeometry, soundwaveMaterial);
@@ -959,9 +959,9 @@ const sketch = ({ context, canvas, width, height }) => {
       const swtranslationX = mouse.x * 2;
       const swtranslationY = 0 + mouse.y * 2;
 
-       soundwaveMesh.rotation.x = swrotationX / 4;
-       soundwaveMesh.rotation.y = swrotationY / 4;
-       soundwaveMesh.position.x = swtranslationX / 2;
+       soundwaveMesh.rotation.x = swrotationX / 2;
+       soundwaveMesh.rotation.z = swrotationZ / 8;
+       soundwaveMesh.position.x = swtranslationX / 4;
     }
 
     if (brainMesh) {
@@ -1118,6 +1118,8 @@ const sketch = ({ context, canvas, width, height }) => {
       const responsiveHeight =  viewportWidth * 0.545;
       const responsiveHeightDPR =  viewportWidth * 0.545 * dpr;
       const responsiveHeightPX =  viewportWidth * 0.545 + "px";
+
+      
 
       canvas.width = viewportWidth * dpr;
 
