@@ -1,9 +1,3 @@
-const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-if (IS_IOS) {
-  console.log("iOS");
-  window.createImageBitmap = undefined;
-}
-
 const canvasSketch = require("canvas-sketch");
 
 const ASSET_SOURCE = window.location.protocol.includes('https') ? `https://spruce-cdn.s3.ap-southeast-2.amazonaws.com/sohn-threejs-glass/` : './'
@@ -46,35 +40,40 @@ let brainMesh;
 
 const TEXTURES = [
   'hero_white.png',
-  'hero_white.jpg',
-  'hero_black.png',
-  '60_minute_thesis_white.png',
+  'hero_white_ios.jpg',
+   'hero_white.jpg',
+  // 'hero_black.png',
+  // '60_minute_thesis_white.png',
   '60_minute_thesis_black.png',
-  'about_what_matters_white.png',
-  'about_what_matters_black.png',
-  'fresh_perspective_white.png',
-  'fresh_perspective_black.png',
-  'investment_for_good_white.png',
-  'investment_for_good_black.png',
-  'leadership_that_reflects_white.png',
-  'leadership_that_reflects_black.png',
+  '60_minute_thesis_black_ios.png',
+  // 'about_what_matters_white.png',
+  'about_what_matters_black.png', 
+  'about_what_matters_black_ios.png',
+  // 'fresh_perspective_white.png',
+  // 'fresh_perspective_black.png',
+  // 'investment_for_good_white.png',
+  // 'investment_for_good_black.png',
+  // 'leadership_that_reflects_white.png',
+  // 'leadership_that_reflects_black.png',
   'meet_8_minute_power_pitch_white.png',
-  'meet_8_minute_power_pitch_black.png',
-  'Provoking_the_paradigm_white.png',
-  'Provoking_the_paradigm_black.png',
-  'refacts_tomorrow_white.png',
-  'refacts_tomorrow_black.png',
-  'transform_tomorrow_white.png',
-  'transform_tomorrow_black.png',
-  'what_matters_white.png',
-  'what_matters_black.png',
+  'meet_8_minute_power_pitch_white_ios.png',
+  // 'meet_8_minute_power_pitch_black.png',
+  // 'Provoking_the_paradigm_white.png',
+  // 'Provoking_the_paradigm_black.png',
+  // 'refacts_tomorrow_white.png',
+  // 'refacts_tomorrow_black.png',
+  // 'transform_tomorrow_white.png',
+  // 'transform_tomorrow_black.png',
   'why_it_matters_white.png',
-  'why_it_matters_black.png',
-  '50_million.png',
+  'why_it_matters_white_ios.png',
+  // 'why_it_matters_black.png',
+  // '50_million.png',
   'dolton_house.png',
-  'media.png',
+  'dolton_house_ios.png',
+  // 'media.png',
   'speakers.png',
-  'summary.png',
+  'speakers_ios.png',
+  // 'summary.png',
 ];
 
 // Instances of THREE classes are kept in this object by asset filename
@@ -103,8 +102,8 @@ function watchTargetBgColor(target, callback) {
   
   // The configuration
   const config = {
-    attributes: true,       // We're observing attribute changes
-    attributeFilter: ['style']  // Specifically, changes to the "style" attribute
+    attributes: true, // We're observing attribute changes
+    attributeFilter: ['style'] // Specifically, changes to the "style" attribute
   };
 
   const observer = new MutationObserver(mutations => {
@@ -325,7 +324,8 @@ const sketch = ({ context, canvas, width, height }) => {
   composer.addPass(bloomPass);
 
   // Content
-  const textureLoader = new THREE.TextureLoader();
+  const textureLoader = new THREE.TextureLoader();1
+  textureLoader.minFilter = THREE.LinearFilter;
   const bgGeometry = new THREE.PlaneGeometry(10.6666, 6); // aspect ratio for the background image containing the text
 
   function loadTextures() {
@@ -602,23 +602,23 @@ const sketch = ({ context, canvas, width, height }) => {
   });
 
   // Load GLTF pebbleb model
-  new THREE.GLTFLoader().load(`${ASSET_SOURCE}assets/pebble_b.glb`, (gltf) => {
-    const pebblebModel = gltf.scene.children.find((mesh) => mesh.name === "pebble_b_remesh");
+  new THREE.GLTFLoader().load(`${ASSET_SOURCE}assets/pebble_b_v3.glb`, (gltf) => {
+    const pebblebModel = gltf.scene.children.find((mesh) => mesh.name === "pebble_b");
     const pebblebMeshName = pebblebModel.name; // Store the mesh name in a variable
+
     // Just copy the geometry from the loaded model
     const pebblebGeometry = pebblebModel.geometry.clone();
 
     // Adjust geometry to suit our scene
-    pebblebGeometry.rotateX(Math.PI / 2);
-    pebblebGeometry.rotateY(Math.PI / 4);
-    pebblebGeometry.rotateZ(Math.PI / 2);
-    pebblebGeometry.translate(150, 50, 50);
+    pebblebGeometry.rotateX(Math.PI * 1.5);
+    pebblebGeometry.rotateY(Math.PI);
+    pebblebGeometry.rotateZ(Math.PI * 0.8);
+    pebblebGeometry.translate(55, 0, 5);
 
     // Create a new mesh and place it in the scene
     pebblebMesh = MODELS['pebble_b.glb'] = new THREE.Mesh(pebblebGeometry, pebblebMaterial);
-    pebblebMesh.scale.set(0.01, 0.01, 0.01);
+    pebblebMesh.scale.set(0.04, 0.04, 0.04);
     scene.add(pebblebMesh);
-    
 
     // Discard the loaded model
     gltf.scene.children.forEach((child) => {
@@ -629,22 +629,24 @@ const sketch = ({ context, canvas, width, height }) => {
   });
 
   // Load GLTF pebblec model
-  new THREE.GLTFLoader().load(`${ASSET_SOURCE}assets/pebble_c.glb`, (gltf) => {
-    const pebblecModel = gltf.scene.children.find((mesh) => mesh.name === "pebble_c_remesh001");
+  new THREE.GLTFLoader().load(`${ASSET_SOURCE}assets/pebble_c_v3.glb`, (gltf) => {
+    const pebblecModel = gltf.scene.children.find((mesh) => mesh.name === "pebble_c");
     const pebblecMeshName = pebblecModel.name; // Store the mesh name in a variable
+    
     // Just copy the geometry from the loaded model
     const pebblecGeometry = pebblecModel.geometry.clone();
 
     // Adjust geometry to suit our scene
-    pebblecGeometry.rotateX(Math.PI / 2);
-    pebblecGeometry.translate(-150, 10, 5);
+    pebblecGeometry.rotateX(Math.PI * 1.5);
+    pebblecGeometry.rotateY(Math.PI * 1.2);
+    pebblecGeometry.rotateZ(Math.PI * 1.2);
+    pebblecGeometry.translate(-40, 0, 5);
 
     // Create a new mesh and place it in the scene
     pebblecMesh = MODELS['pebble_c.glb'] = new THREE.Mesh(pebblecGeometry, pebblecMaterial);
-    pebblecMesh.scale.set(0.01, 0.01, 0.01);
+    pebblecMesh.scale.set(0.032, 0.032, 0.032);
     scene.add(pebblecMesh);
     
-
     // Discard the loaded model
     gltf.scene.children.forEach((child) => {
       if (child.pebblecGeometry) child.pebblecGeometry.dispose();
