@@ -583,9 +583,10 @@ const sketch = ({ context, canvas, width, height }) => {
     const pebbleaGeometry = pebbleaModel.geometry.clone();
 
     // Adjust geometry to suit our scene
-    pebbleaGeometry.rotateX(Math.PI / 0.4);
-    pebbleaGeometry.rotateY(Math.PI / 0.5);
-    pebbleaGeometry.translate(0, 10, 5);
+    pebbleaGeometry.rotateX(Math.PI * 1.5);
+    pebbleaGeometry.rotateY(Math.PI);
+    pebbleaGeometry.rotateZ(Math.PI);
+    pebbleaGeometry.translate(0, -150, 30);
 
     // Create a new mesh and place it in the scene
     pebbleaMesh = MODELS['pebble_a.glb'] = new THREE.Mesh(pebbleaGeometry, pebbleaMaterial);
@@ -929,17 +930,13 @@ const sketch = ({ context, canvas, width, height }) => {
     }
 
     if (pebbleaMesh) {
-      const parotationX = Math.PI / 2 + mouse.y * 1;
       const parotationY = Math.PI / 2 + mouse.x * 1;
-      const parotationZ = Math.PI / 2 + mouse.x * 2;
       const patranslationX = mouse.x * 6;
       const patranslationY = 0 + mouse.y * 2;
 
-      pebbleaMesh.rotation.x = parotationX;
-      pebbleaMesh.rotation.y = parotationY;
-      pebbleaMesh.rotation.z = parotationZ;
-      pebbleaMesh.position.x = patranslationX / 2;
-      pebbleaMesh.position.y = patranslationY / 2;
+      pebbleaMesh.rotation.x = parotationY / 4;
+      pebbleaMesh.position.y = patranslationX / 8;
+      pebbleaMesh.position.x = patranslationY / 8;
     }
 
     if (pebblebMesh) {
