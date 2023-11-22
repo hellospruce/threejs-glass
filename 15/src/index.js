@@ -73,7 +73,8 @@ const TEXTURES = [
   // 'media.png',
   'speakers.png',
   'speakers_ios.png',
-  // 'summary.png',
+  'summary.png',
+  'podcast.png',
 ];
 
 // Instances of THREE classes are kept in this object by asset filename
