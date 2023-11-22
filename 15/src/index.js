@@ -70,7 +70,7 @@ const TEXTURES = [
   // '50_million.png',
   'dolton_house.png',
   'dolton_house_ios.png',
-  // 'media.png',
+  'media.png',
   'speakers.png',
   'speakers_ios.png',
   'summary.png',
